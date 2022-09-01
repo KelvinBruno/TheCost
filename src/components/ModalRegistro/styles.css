@@ -1,0 +1,32 @@
+#valor {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 16px;
+    gap: 10px;
+    height: 38.5px;
+    border-radius: 4px;
+    padding: 0 13px;
+    gap: 8px;
+    background-color: var(--white);
+    border: none;
+    width: 66%;
+}
+
+#valor:focus {
+    box-shadow: 0 0 0 0;
+    border: none;
+    outline: 0;
+}
+
+#div-valor {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+#div-valor label {
+    margin-top: 13.7px;
+    width: 80%;
+}
