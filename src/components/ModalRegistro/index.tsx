@@ -29,10 +29,6 @@ interface FormValues {
   value: number | string;
 }
 
-interface IHandleSubmit {
-  handleSubmit: (data: FormValues) => Promise<void>;
-}
-
 export function ModalRegistro({ id, editar }: IModal) {
   const {
     register,
