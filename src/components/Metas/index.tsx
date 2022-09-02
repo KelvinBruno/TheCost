@@ -14,9 +14,9 @@ const Metas = () => {
                         <BtnRegistroMeta>Novo Registro</BtnRegistroMeta>
                     </div>
                     <div className="centralize-metas">
-                        <h3>Objetivo: </h3>
-                        <h3>Valor: </h3>
-                        <h3>Guardado: </h3>
+                        <h3>Objetivo: {item.objetivo} </h3>
+                        <h3>Valor: {item.value} </h3>
+                        <h3>Guardado: {item.done} </h3>
                     </div>
                     <span>{}% Atingido</span>
                 </Meta>
