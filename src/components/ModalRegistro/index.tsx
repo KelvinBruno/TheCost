@@ -1,23 +1,26 @@
 import CurrencyInput from "react-currency-input-field";
 import { MdClear } from "react-icons/md";
-import { BtnSalvar, Input, Label } from "../../styles/global";
+import { BtnSalvar, Input } from "../../styles/global";
 import { yupResolver } from "@hookform/resolvers/yup";
 import "./styles.css";
 import {
   BotaoFechar,
   ComponenteModal,
+  ContainerInputGroup,
   DivTitle,
   FormModal,
   InputData,
   InputsGroup,
+  LabelModal,
   Modal,
   Select,
   Title,
 } from "./style.module";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 interface IModal {
-  id: string;
+  id?: string;
   editar?: boolean;
 }
 
@@ -40,131 +43,118 @@ export function ModalRegistro({ id, editar }: IModal) {
     console.log(data.value);
   });
 
-  function fechaModal() {}
+  let tituloModal = "";
+  let optionTipo = (
+    <>
+      <option value="Salário" id="Salário">
+        Salário
+      </option>
+      <option value="Outros rendimentos" id="Outros rendimentos">
+        Outros rendimentos
+      </option>
+    </>
+  );
+  const [tipo, setTipo] = useState("");
+  // const optionsTipo = [
+  //   { value: `Despesa`, label: `Despesa` },
+  //   { value: `Receita`, label: `Receita` },
+  // ];
+
+  // const optionsReceitas = [
+  //   { value: `Salário`, label: `Salário` },
+  //   {
+  //     value: `Outros Rendimentos`,
+  //     label: `Outros Rendimentos`,
+  //   },
+  // ];
 
   if (editar) {
-    return (
-      <Modal>
-        <ComponenteModal>
-          <DivTitle>
-            <Title>Editar Registro</Title>
-            <BotaoFechar onClick={() => fechaModal()}>
-              <MdClear />
-            </BotaoFechar>
-          </DivTitle>
-          <FormModal onSubmit={onSubmit}>
-            <Label htmlFor="descricao">Descrição</Label>
+    tituloModal = "Editar Registro";
+  } else {
+    tituloModal = "Criar Registro";
+  }
+
+  if (tipo === "Despesas") {
+    optionTipo = (
+      <>
+        <option value="Supermercado" id="Supermercado">
+          Supermercado
+        </option>
+        <option value="Veículos" id="Veículos">
+          Veículos
+        </option>
+      </>
+    );
+  }
+
+  function fechaModal() {}
+
+  return (
+    <Modal>
+      <ComponenteModal>
+        <DivTitle>
+          <Title>{tituloModal}</Title>
+          <BotaoFechar onClick={() => fechaModal()}>
+            <MdClear />
+          </BotaoFechar>
+        </DivTitle>
+        <FormModal onSubmit={onSubmit}>
+          <InputsGroup>
+            <LabelModal htmlFor="descricao">Descrição</LabelModal>
             <Input
               type="text"
               id="descricao"
               placeholder="Insira a descrição do gasto"
               {...register("description")}
             />
-            <InputsGroup>
-              <div>
-                <Label htmlFor="tipo">Tipo</Label>
-                <Select id="tipo" {...register("type")}>
-                  <option value="Receita">Receita</option>
-                  <option value="Despesa">Despesa</option>
-                </Select>
-              </div>
-              <div>
-                <Label htmlFor="categoria">Categoria</Label>
-                <Select id="categoria" {...register("category")}>
-                  <option value="Salário">Salário</option>
-                  <option value="Outros Rendimentos">Outros Rendimentos</option>
-                </Select>
-              </div>
-            </InputsGroup>
-            <InputsGroup>
-              <div>
-                <Label htmlFor="data">Data</Label>
-                <InputData type="date" id="data" {...register("date")} />
-              </div>
-              <div id="div-valor">
-                <Label htmlFor="valor">Valor</Label>
-                <CurrencyInput
-                  id="valor"
-                  placeholder="R$"
-                  decimalsLimit={2}
-                  maxLength={18}
-                  disableAbbreviations
-                  defaultValue={0}
-                  intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-                  {...register("value", {
-                    setValueAs: (value) => {
-                      value = value.slice(3);
-                      value = value.replaceAll(".", "");
-                      value = value.replace(",", ".");
-                      value = parseFloat(value);
-                      return value;
-                    },
-                  })}
-                />
-              </div>
-            </InputsGroup>
-            <BtnSalvar>Salvar</BtnSalvar>
-          </FormModal>
-        </ComponenteModal>
-      </Modal>
-    );
-  } else {
-    return (
-      <Modal>
-        <ComponenteModal>
-          <DivTitle>
-            <Title>Criar Registro</Title>
-            <BotaoFechar onClick={() => fechaModal()}>
-              <MdClear />
-            </BotaoFechar>
-          </DivTitle>
-          <FormModal>
-            <Label htmlFor="descricao">Descrição</Label>
-            <Input
-              type="text"
-              id="descricao"
-              placeholder="Insira a descrição do gasto"
-            />
-            <InputsGroup>
-              <div>
-                <Label htmlFor="tipo">Tipo</Label>
-                <Select id="tipo" name="tipo">
-                  <option value="Receita">Receita</option>
-                  <option value="Despesa">Despesa</option>
-                </Select>
-              </div>
-              <div>
-                <Label htmlFor="categoria">Categoria</Label>
-                <Select id="categoria">
-                  <option value="Salário">Salário</option>
-                  <option value="Outros Rendimentos">Outros Rendimentos</option>
-                </Select>
-              </div>
-            </InputsGroup>
-            <InputsGroup>
-              <div>
-                <Label htmlFor="data">Data</Label>
-                <InputData type="date" id="data" />
-              </div>
-              <div id="div-valor">
-                <Label htmlFor="valor">Valor</Label>
-                <CurrencyInput
-                  id="valor"
-                  decimalsLimit={2}
-                  maxLength={18}
-                  prefix="R$"
-                  disableAbbreviations
-                  defaultValue={0}
-                  fixedDecimalLength={2}
-                  placeholder="R$"
-                  intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-                />
-              </div>
-            </InputsGroup>
-            <BtnSalvar>Salvar</BtnSalvar>
-          </FormModal>
-        </ComponenteModal>
-      </Modal>
-    );
-  }
+          </InputsGroup>
+          <InputsGroup>
+            <ContainerInputGroup>
+              <LabelModal htmlFor="tipo">Tipo</LabelModal>
+              <Select id="tipo" onChange={(e) => setTipo(e.target.value)}>
+                <option value="Receitas" id="Receitas">
+                  Receitas
+                </option>
+                <option value="Despesas" id="Despesas">
+                  Despesas
+                </option>
+              </Select>
+            </ContainerInputGroup>
+            <ContainerInputGroup>
+              <LabelModal htmlFor="categoria">Categoria</LabelModal>
+              <Select id="categoria">{optionTipo}</Select>
+            </ContainerInputGroup>
+          </InputsGroup>
+          <InputsGroup>
+            <ContainerInputGroup>
+              <LabelModal htmlFor="data">Data</LabelModal>
+              <InputData type="date" id="data" {...register("date")} />
+            </ContainerInputGroup>
+            <ContainerInputGroup id="div-valor">
+              <LabelModal htmlFor="valor">Valor</LabelModal>
+              <CurrencyInput
+                id="valor"
+                placeholder="R$"
+                decimalsLimit={2}
+                maxLength={18}
+                disableAbbreviations
+                defaultValue={0}
+                intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+                {...register("value", {
+                  setValueAs: (value) => {
+                    value = value.slice(3);
+                    value = value.replaceAll(".", "");
+                    value = value.replace(",", ".");
+                    value = parseFloat(value);
+                    return value;
+                  },
+                })}
+              />
+            </ContainerInputGroup>
+          </InputsGroup>
+          <BtnSalvar>Salvar</BtnSalvar>
+        </FormModal>
+      </ComponenteModal>
+    </Modal>
+  );
 }

@@ -1,16 +1,17 @@
+#descricao {
+    width: 100%;
+}
+
 #valor {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0px 16px;
-    gap: 10px;
     height: 38.5px;
     border-radius: 4px;
-    padding: 0 13px;
-    gap: 8px;
+    padding: 0 6px;
     background-color: var(--white);
     border: none;
-    width: 66%;
+    width: 96.2%;
 }
 
 #valor:focus {
@@ -19,14 +20,37 @@
     outline: 0;
 }
 
-#div-valor {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
+#data {
+    padding: 0px 5px;
+    width: 97%;
 }
 
-#div-valor label {
-    margin-top: 13.7px;
-    width: 80%;
+input {
+    margin-top: 10px;
+}
+
+#tipo {
+    width: 100%;
+}
+
+#categoria {
+    width: 100%;
+}
+
+@media (min-width: 445px) {
+    #tipo {
+        width: 70%;
+    }
+
+    #data {
+        width: 70%;
+    }
+
+    #valor {
+        width: 92%;
+    }
+
+    #div-valor {
+        max-width: 40%;
+    }
 }
