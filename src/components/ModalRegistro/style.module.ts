@@ -121,7 +121,7 @@ export const ContainerInputGroup = styled.div`
     display: flex;
     flex-direction: column;
     min-width: 100%;
-    @media (min-width: 442px){
+    @media (min-width: 445px){
         margin-top: 10px;
         min-width: 50%;
     }

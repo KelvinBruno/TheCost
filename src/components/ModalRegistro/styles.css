@@ -37,7 +37,7 @@ input {
     width: 100%;
 }
 
-@media (min-width: 442px) {
+@media (min-width: 445px) {
     #tipo {
         width: 70%;
     }
