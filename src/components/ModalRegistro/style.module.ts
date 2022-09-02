@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { Form, Input } from "../../styles/global"
+import { Form, Input, Label } from "../../styles/global"
 
 export const Modal = styled.div`
     position: fixed;
@@ -70,6 +70,7 @@ export const InputsGroup = styled.div`
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+    flex-wrap: wrap;
 `
 
 export const Select = styled.select`
@@ -107,5 +108,22 @@ export const InputData = styled(Input)`
 `
 
 export const InputValor = styled(Input)`
-    width: 55%;
+    width: 50%;
+`
+
+export const LabelModal = styled(Label)`
+    width: auto;
+`
+
+export const ContainerInputGroup = styled.div`
+    min-width: 100%;
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    @media (min-width: 442px){
+        margin-top: 10px;
+        min-width: 50%;
+    }
+    
 `
