@@ -45,10 +45,15 @@ export const Ul = styled.ul`
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+
       .category {
-        margin-left: -40px;
+        width: 30%;
         font-weight: bold;
       }
+    }
+    .editar {
+      width: 8%;
+      margin-right: 0.4rem;
     }
   }
   @media only screen and (min-width: 1024px) {
@@ -66,7 +71,7 @@ export const Ul = styled.ul`
   }
 `;
 export const P = styled.p`
-  color: ${(props) => props.color};
+  color: ${(props) => props.color || "black"};
   font-weight: 500;
 `;
 export const Header = styled.header`

@@ -2,7 +2,7 @@ import { Div, Ul, P, Header } from "./styles";
 import { AiFillCar, AiOutlineShoppingCart } from "react-icons/ai";
 import { BsCameraReelsFill } from "react-icons/bs";
 import { RiPlaneLine } from "react-icons/ri";
-import { FaTshirt } from "react-icons/fa";
+import { FaTshirt, FaTrash, FaPen } from "react-icons/fa";
 import Faturas from "../../assets/Faturas.svg";
 import Money from "../../assets/Vector.svg";
 function ListaCards() {
@@ -110,100 +110,150 @@ function ListaCards() {
           data.category === "Veículo" ? (
             <li>
               <section>
-                <AiFillCar size={"1.2rem"} />
-                <P className="category">{data.category}</P>
+                <section className="category">
+                  <AiFillCar size={"1.2rem"} />
+                  <P>{data.category}</P>
+                </section>
 
                 <p>{data.description}</p>
               </section>
+              <P>{data.date}</P>
+
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
               ) : (
                 <P color="#053770">R${data.value}</P>
               )}
+              <section className="editar">
+                <FaPen />
+                <FaTrash />
+              </section>
             </li>
           ) : data.category === "Supermercado" ? (
             <li>
               <section>
-                <AiOutlineShoppingCart size={"1.2rem"} />
-                <P className="category">{data.category}</P>
+                <section className="category">
+                  <AiOutlineShoppingCart size={"1.2rem"} />
+                  <P>{data.category}</P>
+                </section>
 
                 <p>{data.description}</p>
               </section>
+              <P>{data.date}</P>
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
               ) : (
                 <P color="#053770">R${data.value}</P>
               )}
+              <section className="editar">
+                <FaPen />
+                <FaTrash />
+              </section>
             </li>
           ) : data.category === "Salário" ? (
             <li>
               <section>
-                <img src={Money} alt="money" />
-                <P className="category">{data.category}</P>
+                <section className="category">
+                  <img src={Money} alt="money" />
+                  <P>{data.category}</P>
+                </section>
 
                 <p>{data.description}</p>
               </section>
+              <P>{data.date}</P>
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
               ) : (
                 <P color="#053770">R${data.value}</P>
               )}
+              <section className="editar">
+                <FaPen />
+                <FaTrash />
+              </section>
             </li>
           ) : data.category === "Contas" ? (
             <li>
               <section>
-                <img src={Faturas} alt="faturas" />
-                <P className="category">{data.category}</P>
+                <section className="category">
+                  <img src={Faturas} alt="faturas" />
+                  <P>{data.category}</P>
+                </section>
 
                 <p>{data.description}</p>
               </section>
+              <P>{data.date}</P>
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
               ) : (
                 <P color="#053770">R${data.value}</P>
               )}
+              <section className="editar">
+                <FaPen />
+                <FaTrash />
+              </section>
             </li>
           ) : data.category === "Moda/Beleza" ? (
             <li>
               <section>
-                <FaTshirt size={"1.2rem"} />
-                <P className="category">{data.category}</P>
+                <section className="category">
+                  <FaTshirt size={"1.2rem"} />
+                  <P>{data.category}</P>
+                </section>
 
                 <p>{data.description}</p>
               </section>
+              <P>{data.date}</P>
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
               ) : (
                 <P color="#053770">R${data.value}</P>
               )}
+              <section className="editar">
+                <FaPen />
+                <FaTrash />
+              </section>
             </li>
           ) : data.category === "Lazer" ? (
             <li>
               <section>
-                <BsCameraReelsFill size={"1.2rem"} />
-                <P className="category">{data.category}</P>
+                <section className="category">
+                  <BsCameraReelsFill size={"1.2rem"} />
+                  <P>{data.category}</P>
+                </section>
 
                 <p>{data.description}</p>
               </section>
+              <P>{data.date}</P>
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
               ) : (
                 <P color="#053770">R${data.value}</P>
               )}
+              <section className="editar">
+                <FaPen />
+                <FaTrash />
+              </section>
             </li>
           ) : (
             <li>
               <section>
-                <RiPlaneLine size={"1.2rem"} />
-                <P className="category">{data.category}</P>
+                <section className="category">
+                  <RiPlaneLine size={"1.2rem"} />
+                  <P>{data.category}</P>
+                </section>
 
                 <p>{data.description}</p>
               </section>
+              <P>{data.date}</P>
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
               ) : (
                 <P color="#053770">R${data.value}</P>
               )}
+              <section className="editar">
+                <FaPen />
+                <FaTrash />
+              </section>
             </li>
           )
         )}
