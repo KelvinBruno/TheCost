@@ -5,13 +5,15 @@ export const Div = styled.div`
   width: 100%;
   height: 100vh;
   background-color: transparent;
-  @media (min-width: 640px) {
+  @media (min-width: 641px) {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
 `;
+
 export const Header = styled.header`
+  position: sticky;
   width: 100%;
   height: 9%;
   margin-bottom: 1rem;
@@ -21,44 +23,47 @@ export const Header = styled.header`
     height: 3rem;
     margin: auto;
   }
-  @media (min-width: 640px) {
+  @media (min-width: 641px) {
     display: none;
   }
 `;
+
 export const Label1 = styled(Label)`
   font-size: 15px;
 `;
+
 export const Input1 = styled(Input)`
   height: 2rem;
 `;
+
 export const Form1 = styled(Form)`
-  position: absolute;
-  left: 50%;
+  position: sticky;
   width: 18rem;
   h1 {
     font-size: 25px;
   }
 
+  label {
+    font-weight: 700;
+    width: 100%;
+    margin-top: 5px;
+    text-align: start;
+  }
+
+  input {
+    margin-bottom: 5px;
+  }
+
   @media (max-width: 700px) {
     width: 15rem;
   }
-  @media (max-width: 640px) {
-    left: 28%;
-  }
-  @media (max-width: 450px) {
-    left: 20%;
-  }
-  @media (max-width: 380px) {
-    left: 15%;
-  }
-  @media (max-width: 340px) {
-    left: 10%;
-  }
-  @media (max-width: 320px) {
-    left: 7%;
-  }
 `;
+
 export const Div1 = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 50%;
   height: 50%;
   img {
@@ -66,12 +71,12 @@ export const Div1 = styled.div`
   }
   p {
     width: 70%;
-    margin: auto;
+    margin-bottom: 39px;
     font-size: 25px;
     color: #fbfbfb;
     font-weight: 500;
   }
-  @media (max-width: 640px) {
+  @media (max-width: 641px) {
     display: none;
   }
   @media (min-width: 1000px) {
@@ -83,6 +88,7 @@ export const Div1 = styled.div`
     }
   }
 `;
+
 export const Divpai = styled.div`
   background-color: #279fd8;
   width: 100vw;
@@ -190,13 +196,15 @@ export const Divpai = styled.div`
       }
     }
   }
-  @media (min-width: 640px) {
+  @media (min-width: 641px) {
     background-color: #053770;
   }
 `;
+
 export const P2 = styled.p`
   color: #fbfbfb;
 `;
+
 export const P = styled.p`
   color: #279fd8;
   width: 100%;
@@ -204,5 +212,14 @@ export const P = styled.p`
   margin-right: 7rem;
   @media (min-width: 700px) {
     margin-right: 11rem;
+  }
+`;
+
+export const ContainerForm = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  @media (min-width: 641px) {
+    width: 50%;
   }
 `;
