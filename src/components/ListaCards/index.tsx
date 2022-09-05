@@ -5,6 +5,7 @@ import { RiPlaneLine } from "react-icons/ri";
 import { FaTshirt, FaTrash, FaPen } from "react-icons/fa";
 import Faturas from "../../assets/Faturas.svg";
 import Money from "../../assets/Vector.svg";
+import { BtnEditar, BtnExcluir } from "../../styles/global";
 function ListaCards() {
   interface ITeste {
     description: string;
@@ -101,9 +102,11 @@ function ListaCards() {
   return (
     <Div>
       <Header>
-        <p>despesas</p>
-        <p>truco</p>
-        <p>macadâmia</p>
+        <p>Categoria</p>
+        <p>Descrição</p>
+        <p>Data</p>
+        <p>Valor</p>
+        <p>Opções</p>
       </Header>
       <Ul>
         {DataBase.map((data) =>
@@ -117,7 +120,7 @@ function ListaCards() {
 
                 <p>{data.description}</p>
               </section>
-              <P>{data.date}</P>
+              <P className="date">{data.date}</P>
 
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
@@ -125,8 +128,12 @@ function ListaCards() {
                 <P color="#053770">R${data.value}</P>
               )}
               <section className="editar">
-                <FaPen />
-                <FaTrash />
+                <BtnEditar>
+                  <FaPen />
+                </BtnEditar>
+                <BtnExcluir>
+                  <FaTrash />
+                </BtnExcluir>
               </section>
             </li>
           ) : data.category === "Supermercado" ? (
@@ -139,15 +146,19 @@ function ListaCards() {
 
                 <p>{data.description}</p>
               </section>
-              <P>{data.date}</P>
+              <P className="date">{data.date}</P>
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
               ) : (
                 <P color="#053770">R${data.value}</P>
               )}
               <section className="editar">
-                <FaPen />
-                <FaTrash />
+                <BtnEditar>
+                  <FaPen />
+                </BtnEditar>
+                <BtnExcluir>
+                  <FaTrash />
+                </BtnExcluir>
               </section>
             </li>
           ) : data.category === "Salário" ? (
@@ -160,15 +171,19 @@ function ListaCards() {
 
                 <p>{data.description}</p>
               </section>
-              <P>{data.date}</P>
+              <P className="date">{data.date}</P>
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
               ) : (
                 <P color="#053770">R${data.value}</P>
               )}
               <section className="editar">
-                <FaPen />
-                <FaTrash />
+                <BtnEditar>
+                  <FaPen />
+                </BtnEditar>
+                <BtnExcluir>
+                  <FaTrash />
+                </BtnExcluir>
               </section>
             </li>
           ) : data.category === "Contas" ? (
@@ -181,15 +196,19 @@ function ListaCards() {
 
                 <p>{data.description}</p>
               </section>
-              <P>{data.date}</P>
+              <P className="date">{data.date}</P>
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
               ) : (
                 <P color="#053770">R${data.value}</P>
               )}
               <section className="editar">
-                <FaPen />
-                <FaTrash />
+                <BtnEditar>
+                  <FaPen />
+                </BtnEditar>
+                <BtnExcluir>
+                  <FaTrash />
+                </BtnExcluir>
               </section>
             </li>
           ) : data.category === "Moda/Beleza" ? (
@@ -202,15 +221,15 @@ function ListaCards() {
 
                 <p>{data.description}</p>
               </section>
-              <P>{data.date}</P>
+              <P className="date">{data.date}</P>
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
               ) : (
                 <P color="#053770">R${data.value}</P>
               )}
               <section className="editar">
-                <FaPen />
-                <FaTrash />
+                <FaPen className="hoverRed" />
+                <FaTrash className="hoverRed" />
               </section>
             </li>
           ) : data.category === "Lazer" ? (
@@ -223,15 +242,19 @@ function ListaCards() {
 
                 <p>{data.description}</p>
               </section>
-              <P>{data.date}</P>
+              <P className="date">{data.date}</P>
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
               ) : (
                 <P color="#053770">R${data.value}</P>
               )}
               <section className="editar">
-                <FaPen />
-                <FaTrash />
+                <BtnEditar>
+                  <FaPen />
+                </BtnEditar>
+                <BtnExcluir>
+                  <FaTrash />
+                </BtnExcluir>
               </section>
             </li>
           ) : (
@@ -244,15 +267,19 @@ function ListaCards() {
 
                 <p>{data.description}</p>
               </section>
-              <P>{data.date}</P>
+              <P className="date">{data.date}</P>
               {data.type === "Despesa" ? (
                 <P color="#D10707">R${data.value}</P>
               ) : (
                 <P color="#053770">R${data.value}</P>
               )}
               <section className="editar">
-                <FaPen />
-                <FaTrash />
+                <BtnEditar>
+                  <FaPen />
+                </BtnEditar>
+                <BtnExcluir>
+                  <FaTrash />
+                </BtnExcluir>
               </section>
             </li>
           )
