@@ -41,6 +41,13 @@ export const Container = styled.div`
     padding-bottom: 2.5rem;
 
     background-color: var(--blue-0);
+
+    .yup-notification {
+    width: 16.5rem;
+    display: flex;
+    align-items: left;
+    color: var(--blue-1)
+    }
 `
 
 export const FormRegistro = styled(Form)`      
@@ -88,4 +95,5 @@ export const InputForm = styled(Input)`
     width: 100%;
     height: 2.3rem;
     background-color: var(--white); 
+    font-family: 'Inter', sans-serif; 
 `
