@@ -1,4 +1,12 @@
-import { ReactNode, useContext, useEffect, useState, createContext } from "react";
+import {
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+  createContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import { AuthContext } from "./AuthContext";
@@ -7,7 +15,7 @@ interface IMetaChildren {
   children: ReactNode;
 }
 
-export interface IMeta{
+export interface IMeta {
   objetivo: string;
   value: number;
   done: number;
@@ -16,15 +24,15 @@ export interface IMeta{
 }
 
 interface IMetaContext {
-  setMetas: React.Dispatch<React.SetStateAction<never[]>>;
+  setMetas: Dispatch<SetStateAction<never[]>>;
   metas: IMeta[];
   carregaMeta: () => Promise<void>;
 }
 
 export const MetaContext = createContext<IMetaContext>({} as IMetaContext);
 
-export function MetaProvider({ children }: IMetaChildren){
-  const [ metas, setMetas ] = useState([])
+export function MetaProvider({ children }: IMetaChildren) {
+  const [metas, setMetas] = useState([]);
   const navigate = useNavigate();
   const { setLoading } = useContext(AuthContext);
 
@@ -37,9 +45,9 @@ export function MetaProvider({ children }: IMetaChildren){
         const data = await api.get("/metas");
         const { data: Metas } = data;
 
-        setMetas(Metas)
+        setMetas(Metas);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       } finally {
         setLoading(false);
       }
@@ -52,9 +60,9 @@ export function MetaProvider({ children }: IMetaChildren){
     carregaMeta();
   }, []);
 
-    return (
-      <MetaContext.Provider value={{ carregaMeta, metas, setMetas }}>
-        {children}
-      </MetaContext.Provider>
-    );
+  return (
+    <MetaContext.Provider value={{ carregaMeta, metas, setMetas }}>
+      {children}
+    </MetaContext.Provider>
+  );
 }
