@@ -10,6 +10,7 @@ import {
   Vazio,
 } from "./style.module";
 import logo from "../../assets/logo.png";
+<<<<<<< HEAD
 {
   const Dashboard = () => {
     return (
@@ -18,6 +19,30 @@ import logo from "../../assets/logo.png";
           <div className="centralize-logo">
             <img src={logo} alt="Logo The Cost"></img>
             <h2>The Cost</h2>
+=======
+import Metas from "../Metas";
+
+export function Dashboard() {
+  return (
+    <>
+      <Header>
+        <div className="centralize-logo">
+          <img src={logo} alt="Logo The Cost"></img>
+          <h2>The Cost</h2>
+        </div>
+        <button>Perfil</button>
+      </Header>
+
+      <Container>
+        <Status>
+          <div>
+            <LabelDash>Despesas/Receita:</LabelDash>
+            <select>
+              <option>Todos</option>
+              <option>Despesas</option>
+              <option>Receitas</option>
+            </select>
+>>>>>>> aacd4d59122376402bac98996599993b7944e74e
           </div>
           <button>Perfil</button>
         </Header>
@@ -49,10 +74,15 @@ import logo from "../../assets/logo.png";
             <BtnRegistroDash>Novo Registro</BtnRegistroDash>
           </Status>
 
+<<<<<<< HEAD
+=======
+        {num ? (
+>>>>>>> aacd4d59122376402bac98996599993b7944e74e
           <Vazio>
             <img src="./ovni.svg" alt="ovni"></img>
             <p>Nenhum registro foi encontrado...</p>
           </Vazio>
+<<<<<<< HEAD
 
           <Resumo>
             <h2>Resumo</h2>
@@ -70,3 +100,15 @@ import logo from "../../assets/logo.png";
 }
 
 export default Dashboard;
+=======
+        ) : (
+          <ListaCards />
+        )}
+
+        <Metas></Metas>
+
+      </Container>
+    </>
+  );
+}
+>>>>>>> aacd4d59122376402bac98996599993b7944e74e
