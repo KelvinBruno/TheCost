@@ -31,7 +31,7 @@ export const Header = styled.header`
 `
 
 export const Container = styled.div`
-    height: 100vh;
+    height: 100%;
 
     display: flex;
     align-items: flex-start;
@@ -46,9 +46,13 @@ export const Container = styled.div`
 export const FormRegistro = styled(Form)`      
     width: 15rem;
     height: auto;
-    
     border-radius: 16px;
     background-color: var(--blue-3);
+
+    label{
+        text-align: start;
+        width: 100%;
+    }
 
     h2{
         font-size: 28px;
