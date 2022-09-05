@@ -2,22 +2,23 @@ import { useContext } from "react"
 import { MetaContext } from "../../contexts/MetasContext"
 import { BtnRegistroMeta, Meta } from "./style.module"
 
-
 function Metas() {
     const { metas } = useContext(MetaContext)
-
+    
     return(
         <>
             {metas.length > 0 ? metas.map((item) => (
                 <Meta>
-                    <div>
+                    <div className="centralize-header-metas">
                         <h2>Meta</h2>
                         <BtnRegistroMeta>Novo Registro</BtnRegistroMeta>
                     </div>
-                    <p>Objetivo: {item.objetivo}</p>
-                    <span>Valor: {item.value}</span>
-                    <span>Guardado: {item.done}</span>
-                    <h2>{}% Atingido</h2>
+                    <div className="centralize-metas">
+                        <h3>Objetivo: {item.objetivo} </h3>
+                        <h3>Valor: {item.value} </h3>
+                        <h3>Guardado: {item.done} </h3>
+                    </div>
+                    <span>{}% Atingido</span>
                 </Meta>
             )) : (
                 <Meta>
@@ -27,7 +28,7 @@ function Metas() {
                     </div>
                 </Meta>
             )}
-        </>
+        </> 
     )
 }
 
