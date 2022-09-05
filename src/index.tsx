@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { MetaProvider } from "./contexts/MetasContext";
+import { RegistroGastosProvider } from "./contexts/RegistroGastosContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,9 +16,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <MetaProvider>
-          <App />
-        </MetaProvider>
+        <RegistroGastosProvider>
+          <MetaProvider>
+            <App />
+          </MetaProvider>
+        </RegistroGastosProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
