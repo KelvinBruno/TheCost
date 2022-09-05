@@ -29,19 +29,17 @@ export function MetaProvider({ children }: IMetaChildren){
   const { setLoading } = useContext(AuthContext);
 
   async function carregaMeta() {
-    console.log('carregando metas')
     const token = localStorage.getItem("@the-cost:token");
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     if (token) {
       try {
         const data = await api.get("/metas");
-        console.log(data)
         const { data: Metas } = data;
 
         setMetas(Metas)
       } catch (error) {
-        navigate("/");
+        console.error(error)
       } finally {
         setLoading(false);
       }
@@ -52,7 +50,7 @@ export function MetaProvider({ children }: IMetaChildren){
 
   useEffect(() => {
     carregaMeta();
-  }, [metas]);
+  }, []);
 
     return (
       <MetaContext.Provider value={{ carregaMeta, metas, setMetas }}>
