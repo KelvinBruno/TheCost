@@ -148,11 +148,7 @@ export const Form = styled.form`
     font-size: 12.8347px;
     line-height: 21px;
   }
-
-  label {
-    width: 100%;
-  }
-
+  
   button {
     width: 80%;
     margin-top: 7px;
