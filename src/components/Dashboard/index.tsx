@@ -1,8 +1,10 @@
+import ListaCards from "../ListaCards";
 import {
   Header,
   BtnRegistroDash,
   Container,
   LabelDash,
+  Meta,
   Resumo,
   Status,
   Vazio,
@@ -48,15 +50,14 @@ export function Dashboard() {
           <BtnRegistroDash>Novo Registro</BtnRegistroDash>
         </Status>
 
-        <Vazio>
-          <img src="./ovni.svg" alt="ovni"></img>
-          <p>Nenhum registro foi encontrado...</p>
-        </Vazio>
-
-        <Resumo>
-          <h2>Resumo</h2>
-          <p>Aguardando novos registros...</p>
-        </Resumo>
+        {num ? (
+          <Vazio>
+            <img src="./ovni.svg" alt="ovni"></img>
+            <p>Nenhum registro foi encontrado...</p>
+          </Vazio>
+        ) : (
+          <ListaCards />
+        )}
 
         <Metas></Metas>
 
