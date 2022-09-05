@@ -1,6 +1,5 @@
-import { Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
+import { ReactNode, useContext, useEffect, useState, createContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { createContext } from "vm";
 import api from "../services/api";
 import { AuthContext } from "./AuthContext";
 
@@ -17,24 +16,27 @@ export interface IMeta{
 }
 
 interface IMetaContext {
-  CarregarMeta: () => Promise<void>;
-  setMetas: Dispatch<SetStateAction<never[]>>;
+  setMetas: React.Dispatch<React.SetStateAction<never[]>>;
   metas: IMeta[];
+  carregaMeta: () => Promise<void>;
 }
 
-export const MetaContext = createContext({} as IMetaContext);
+export const MetaContext = createContext<IMetaContext>({} as IMetaContext);
 
 export function MetaProvider({ children }: IMetaChildren){
   const [ metas, setMetas ] = useState([])
+  const navigate = useNavigate();
+  const { setLoading } = useContext(AuthContext);
 
-  async function CarregaMeta() {
+  async function carregaMeta() {
+    console.log('carregando metas')
     const token = localStorage.getItem("@the-cost:token");
-    const { setLoading } = useContext(AuthContext);
-      const navigate = useNavigate();
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     if (token) {
       try {
         const data = await api.get("/metas");
+        console.log(data)
         const { data: Metas } = data;
 
         setMetas(Metas)
@@ -49,11 +51,11 @@ export function MetaProvider({ children }: IMetaChildren){
   }
 
   useEffect(() => {
-    CarregaMeta();
+    carregaMeta();
   }, [metas]);
 
     return (
-      <MetaContext.Provider value={{ CarregaMeta, metas, setMetas }}>
+      <MetaContext.Provider value={{ carregaMeta, metas, setMetas }}>
         {children}
       </MetaContext.Provider>
     );
