@@ -1,6 +1,7 @@
 import { createContext, ReactNode } from "react"
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import api from "../services/api";
-
 
 interface IAuthProviderProps{
     children: ReactNode;
@@ -14,24 +15,25 @@ export interface IRegistro{
     image: string;
 }
 
-interface IAuthRegistroContext {
+export interface IAuthRegistroContext {
     submitRegistro: (data: IRegistro) => Promise<void>;
 }
 
 export const AuthRegistroContext = createContext({} as IAuthRegistroContext)
 
-const AuthRegistro = ({ children }: IAuthProviderProps) => {
+const AuthRegistroProvider = ({ children }: IAuthProviderProps) => {
+    const navigate = useNavigate()
     const submitRegistro = async (data: IRegistro) => {
         await api.post("/users", data)
         .then((response) => {
-            console.log(data)
-            console.log(response)
+            toast.success("Cadastro realizado com sucesso")
+            navigate("/");
         })
         .catch((error) => {
-            console.log(error)
+            toast.error("Ops! Algo deu errado!")
         })
     }
-
+    
     return(
         <AuthRegistroContext.Provider value={{ submitRegistro }}>
             { children }
@@ -39,4 +41,4 @@ const AuthRegistro = ({ children }: IAuthProviderProps) => {
     )
 }
 
-export default AuthRegistro
+export default AuthRegistroProvider
