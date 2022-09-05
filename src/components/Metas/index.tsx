@@ -1,12 +1,14 @@
-import { useState } from "react"
+import { useContext } from "react"
+import { MetaContext } from "../../contexts/MetasContext"
 import { BtnRegistroMeta, Meta } from "./style.module"
 
-const [objetivo, setObjetivo] = useState([])
 
-const Metas = () => {
+function Metas() {
+    const { metas } = useContext(MetaContext)
+
     return(
         <>
-            {objetivo.length > 0 ? objetivo.map((item) => (
+            {metas.length > 0 ? metas.map((item) => (
                 <Meta>
                     <div>
                         <h2>Meta</h2>
