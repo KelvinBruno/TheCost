@@ -6,6 +6,8 @@ import { BsArrowLeftCircle } from "react-icons/bs"
 import { useContext } from "react";
 import { BtnCadastrar } from "../../styles/global";
 import { AuthRegistroContext, IRegistro } from "../../contexts/AuthRegistro";
+import { useNavigate } from "react-router-dom";
+
 
 const Registro = () => {
     const schema = yup.object({
@@ -20,6 +22,7 @@ const Registro = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm<IRegistro>({resolver: yupResolver(schema)})
     const { submitRegistro } = useContext(AuthRegistroContext)
+    const navigate = useNavigate()
 
     return(
         <>
@@ -28,7 +31,7 @@ const Registro = () => {
                     <img src="./logo.svg" alt="Logo The Cost"></img>
                     <h2>The Cost</h2>
                 </div>
-                <BsArrowLeftCircle className="icon" size={30}/>
+                <BsArrowLeftCircle className="icon" size={30} onClick={() => navigate("/")}/>
             </Header>
 
             <Container>
