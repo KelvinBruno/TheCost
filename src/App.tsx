@@ -1,13 +1,26 @@
 import React from "react";
 import "./App.css";
-import Dashboard from "./components/Dashboard";
+import { Slide, ToastContainer } from "react-toastify";
 import Global from "./styles/global";
+import { Router } from "./router";
 
 function App() {
   return (
     <div className="App">
       <Global />
-      <Dashboard />
+      <Router />
+      <ToastContainer
+        position="top-right"
+        autoClose={3500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        transition={Slide}
+        pauseOnHover
+      />
     </div>
   );
 }

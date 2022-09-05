@@ -1,31 +1,25 @@
 import * as yup from "yup"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { BtnCadastrar } from "../../styles/global"
 import { Centralize, Container, FormRegistro, Header, InputForm, LabelForm } from "./style.module";
 import { BsArrowLeftCircle } from "react-icons/bs"
+import { useContext } from "react";
+import { BtnCadastrar } from "../../styles/global";
+import { AuthRegistroContext, IRegistro } from "../../contexts/AuthRegistro";
 
-interface IRegistro{
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    link: string;
-}
-
-const Registro = () => {
+export const Registro = () => {
     const schema = yup.object({
-        name: yup.string().required("O nome é obrigatório"),
+        nome: yup.string().required("O nome é obrigatório"),
         email: yup.string().email("Deve ser um email").required("O email é obrigatório"),
         password: yup.string().required("A senha é obrigatória").matches(
             /^(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
             "Senha com no mínimo 8 caracteres. Necessário ter letras, números e ao menos um símbolo"),
         confirmPassword: yup.string().oneOf([yup.ref("password")], "A confirmação deve ser igual a senha").required("A confirmação é obrigatória"),
-        link: yup.string().required("A imagem de perfil é obrigatória")
+        image: yup.string().required("A imagem de perfil é obrigatória")
     })
 
     const { register, handleSubmit, formState: { errors } } = useForm<IRegistro>({resolver: yupResolver(schema)})
-
+    const { submitRegistro } = useContext(AuthRegistroContext)
 
     return(
         <>
@@ -38,7 +32,7 @@ const Registro = () => {
             </Header>
 
             <Container>
-                <FormRegistro>
+                <FormRegistro onClick={handleSubmit(submitRegistro)}>
                     <h2>Cadastro</h2>
                     <Centralize>
                         <LabelForm htmlFor="name">Nome</LabelForm>
@@ -46,9 +40,9 @@ const Registro = () => {
                         type="text"
                         id="name"
                         placeholder="Digite aqui seu nome"
-                        {...register("name")}
+                        {...register("nome")}
                         />
-                        <div className="yup-notification"><p>{errors.name?.message}</p></div>
+                        <div className="yup-notification"><p>{errors.nome?.message}</p></div>
                     </Centralize>
 
                     <Centralize>
@@ -90,16 +84,14 @@ const Registro = () => {
                         type="url"
                         id="link"
                         placeholder="Insira aqui o link"
-                        {...register("link")}
+                        {...register("image")}
                         />
-                        <div className="yup-notification"><p>{errors.link?.message}</p></div>
+                        <div className="yup-notification"><p>{errors.image?.message}</p></div>
                     </Centralize>
 
-                    <BtnCadastrar type="button">Cadastrar</BtnCadastrar>
+                    <BtnCadastrar type="submit">Cadastrar</BtnCadastrar>
                 </FormRegistro>
             </Container>
         </>
     )
 }
-
-export default Registro

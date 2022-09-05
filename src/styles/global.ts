@@ -109,6 +109,9 @@ export const BtnEditar = styled.button`
   }
 `;
 
+export const BtnIcone = styled(BtnEditar)`
+`;
+
 export const BtnExcluir = styled(BtnEditar)`
   :hover {
     color: var(--excluir-hover);

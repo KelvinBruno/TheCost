@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ListaCards from "../ListaCards";
 import {
   Header,
@@ -10,14 +9,15 @@ import {
   Status,
   Vazio,
 } from "./style.module";
+import logo from "../../assets/logo.png";
+import Metas from "../Metas";
 
-const Dashboard = () => {
-  const [num] = useState(false);
+export function Dashboard() {
   return (
     <>
       <Header>
         <div className="centralize-logo">
-          <img src="./logo.svg" alt="Logo The Cost"></img>
+          <img src={logo} alt="Logo The Cost"></img>
           <h2>The Cost</h2>
         </div>
         <button>Perfil</button>
@@ -59,18 +59,9 @@ const Dashboard = () => {
           <ListaCards />
         )}
 
-        <Resumo>
-          <h2>Resumo</h2>
-          <p>Aguardando novos registros...</p>
-        </Resumo>
+        <Metas></Metas>
 
-        <Meta>
-          <h2>Meta</h2>
-          <p>Aguardando novos registros...</p>
-        </Meta>
       </Container>
     </>
   );
-};
-
-export default Dashboard;
+}
