@@ -1,24 +1,23 @@
-import { useState } from "react"
+import { useContext } from "react"
+import { MetaContext } from "../../contexts/MetasContext"
 import { BtnRegistroMeta, Meta } from "./style.module"
 
-const [objetivo, setObjetivo] = useState([])
-
-const Metas = () => {
-
+function Metas() {
+    const { metas } = useContext(MetaContext)
+    
     return(
         <>
-            {objetivo.length > 0 ? objetivo.map((item) => (
-                <Meta>
+            {metas.length > 0 ? metas.map((item) => (
+                <Meta key={item.id}>
                     <div className="centralize-header-metas">
                         <h2>Meta</h2>
-                        <BtnRegistroMeta>Novo Registro</BtnRegistroMeta>
                     </div>
                     <div className="centralize-metas">
                         <h3>Objetivo: {item.objetivo} </h3>
-                        <h3>Valor: {item.value} </h3>
-                        <h3>Guardado: {item.done} </h3>
+                        <h3>Valor: {item.value.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})} </h3>
+                        <h3>Guardado: {item.done.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})} </h3>
                     </div>
-                    <span>{}% Atingido</span>
+                    <span>{item.done / (item.value / 100)}% Atingido</span>
                 </Meta>
             )) : (
                 <Meta>

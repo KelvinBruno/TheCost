@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { BtnCadastrar } from "../../styles/global";
 import { AuthRegistroContext, IRegistro } from "../../contexts/AuthRegistro";
 
-const Registro = () => {
+export const Registro = () => {
     const schema = yup.object({
         nome: yup.string().required("O nome é obrigatório"),
         email: yup.string().email("Deve ser um email").required("O email é obrigatório"),
@@ -95,5 +95,3 @@ const Registro = () => {
         </>
     )
 }
-
-export default Registro
