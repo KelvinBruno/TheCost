@@ -3,12 +3,12 @@ import {
   BtnRegistroDash,
   Container,
   LabelDash,
-  Meta,
   Resumo,
   Status,
   Vazio,
 } from "./style.module";
 import logo from "../../assets/logo.png";
+import Metas from "../Metas";
 
 export function Dashboard() {
   return (
@@ -58,10 +58,8 @@ export function Dashboard() {
           <p>Aguardando novos registros...</p>
         </Resumo>
 
-        <Meta>
-          <h2>Meta</h2>
-          <p>Aguardando novos registros...</p>
-        </Meta>
+        <Metas></Metas>
+
       </Container>
     </>
   );
