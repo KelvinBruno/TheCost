@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { MetaProvider } from "./contexts/MetasContext";
 import { RegistroGastosProvider } from "./contexts/RegistroGastosContext";
+import { IsOpenModalProvider } from "./contexts/ModalContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,13 +16,15 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <RegistroGastosProvider>
-          <MetaProvider>
-            <App />
-          </MetaProvider>
-        </RegistroGastosProvider>
-      </AuthProvider>
+      <IsOpenModalProvider>
+        <AuthProvider>
+          <RegistroGastosProvider>
+            <MetaProvider>
+              <App />
+            </MetaProvider>
+          </RegistroGastosProvider>
+        </AuthProvider>
+      </IsOpenModalProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
