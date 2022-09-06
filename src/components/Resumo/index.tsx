@@ -14,19 +14,16 @@ function Resumo() {
 
   const [receita, setReceita] = useState(0);
   const [despesa, setDespesa] = useState(0);
-  
 
   useEffect(() => {
     function resumoTotal() {
       setReceita(0);
       setDespesa(0);
-    
+
       gastos.map((gasto) => {
         gasto.type === "Despesa"
           ? setDespesa(despesa + gasto.value)
           : setReceita(receita + gasto.value);
-      
-       
       });
     }
     resumoTotal();
@@ -40,14 +37,14 @@ function Resumo() {
         </div>
         <div className="centralize-metas">
           <h3>
-            Receitas:
+            Receitas:{" "}
             {receita.toLocaleString("pt-BR", {
               style: "currency",
               currency: "BRL",
             })}
           </h3>
           <DespesasResumoTitulo>
-            Despesas:
+            Despesas:{" "}
             {despesa.toLocaleString("pt-BR", {
               style: "currency",
               currency: "BRL",
@@ -56,7 +53,7 @@ function Resumo() {
         </div>
         <span>Recursos disponiveís</span>
         <span>
-         { (receita-despesa).toLocaleString("pt-BR", {
+          {(receita - despesa).toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL",
           })}
