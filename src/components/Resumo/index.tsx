@@ -53,7 +53,7 @@ function Resumo() {
         </div>
         <span>Recursos disponiveís</span>
         <span>
-          {(receita - despesa).toLocaleString("pt-BR", {
+          {(receita - despesa ).toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL",
           })}
