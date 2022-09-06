@@ -55,18 +55,6 @@ export function ModalRegistro({ id, editar }: IModal) {
     </>
   );
   const [tipo, setTipo] = useState("");
-  // const optionsTipo = [
-  //   { value: `Despesa`, label: `Despesa` },
-  //   { value: `Receita`, label: `Receita` },
-  // ];
-
-  // const optionsReceitas = [
-  //   { value: `Salário`, label: `Salário` },
-  //   {
-  //     value: `Outros Rendimentos`,
-  //     label: `Outros Rendimentos`,
-  //   },
-  // ];
 
   if (editar) {
     tituloModal = "Editar Registro";
