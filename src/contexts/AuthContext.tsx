@@ -54,7 +54,7 @@ export function AuthProvider({ children }: IAuthChildren) {
 
         setUser(user);
 
-        navigate("/dashboard");
+        navigate("/perfil");
       }
     } catch (err) {
       toast.error("Usuário ou senha incorreto.");

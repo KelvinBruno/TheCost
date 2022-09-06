@@ -18,14 +18,29 @@ import { IRegistro } from "../../Contexts/AuthRegistro";
 import { AuthContext } from "../../Contexts/AuthContext";
 import api from "../../services/api";
 
+interface IEditar {
+  nome: string;
+  email: string;
+  password?: string;
+  confirmPassword?: string;
+  image: string;
+}
+
 const Perfil = () => {
   const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
 
-  const submitEditar = async (data: IRegistro) => {
+  const submitEditar = async (data: IEditar) => {
     const token = localStorage.getItem("@the-cost:token");
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+    const { password } = data;
+    delete data.confirmPassword;
+
+    if (password === "") {
+      delete data.password;
+    }
 
     await api
       .patch(`/users/${user?.id}`, data)
@@ -44,17 +59,18 @@ const Perfil = () => {
       .string()
       .email("Deve ser um email")
       .required("O email é obrigatório"),
+
     password: yup
-      .string()
-      .matches(
-        /^(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-        "Senha com no mínimo 8 caracteres. Necessário ter letras, números e ao menos um símbolo"
-      ),
+      .string(),
+      // .matches(
+      //   /^(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      //   "Senha com no mínimo 8 caracteres. Necessário ter letras, números e ao menos um símbolo"
+      // ),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password")], "A confirmação deve ser igual a senha"),
 
-    image: yup.string().required("A imagem de perfil é obrigatória"),
+    image: yup.string(),
   });
 
   const {
@@ -85,12 +101,12 @@ const Perfil = () => {
       </Header>
 
       <Container>
-        <FormRegistro onClick={handleSubmit(submitEditar)}>
+        <FormRegistro onSubmit={handleSubmit(submitEditar)}>
           <h2>Editar Perfil</h2>
 
           <Centralize>
             <ImgPerfil
-              src="https://i.pinimg.com/736x/f0/af/cb/f0afcbce7ed4a7df7b822964501bf995.jpg"
+              src={ user?.image ? user.image :"https://epipoca.com.br/wp-content/uploads/2022/04/luffy-one-piece-1015.jpg"}
               alt=""
             />
           </Centralize>
