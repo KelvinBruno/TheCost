@@ -11,10 +11,17 @@ import {
 } from "./style.module";
 import logo from "../../assets/logo.png";
 import Metas from "../Metas";
+import { HeaderCards } from "../HeaderCards";
+import { useContext } from "react";
+import { IsOpenModalContext } from "../../contexts/ModalContext";
+import { ModalRegistro } from "../ModalRegistro";
 
 export function Dashboard() {
+  const { OpenModalRegister } = useContext(IsOpenModalContext);
+  const num = false;
   return (
     <>
+      {OpenModalRegister && <ModalRegistro />}
       <Header>
         <div className="centralize-logo">
           <img src={logo} alt="Logo The Cost"></img>
@@ -24,32 +31,7 @@ export function Dashboard() {
       </Header>
 
       <Container>
-        <Status>
-          <div>
-            <LabelDash>Despesas/Receita:</LabelDash>
-            <select>
-              <option>Todos</option>
-              <option>Despesas</option>
-              <option>Receitas</option>
-            </select>
-          </div>
-
-          <div>
-            <LabelDash>Categoria:</LabelDash>
-            <select>
-              <option>Todos</option>
-              <option>Salário</option>
-              <option>Supermercado</option>
-              <option>Veículo</option>
-              <option>Contas</option>
-              <option>Moda/Beleza</option>
-              <option>Lazer</option>
-              <option>Viagem</option>
-            </select>
-          </div>
-          <BtnRegistroDash>Novo Registro</BtnRegistroDash>
-        </Status>
-
+        <HeaderCards></HeaderCards>
         {num ? (
           <Vazio>
             <img src="./ovni.svg" alt="ovni"></img>
@@ -60,7 +42,6 @@ export function Dashboard() {
         )}
 
         <Metas></Metas>
-
       </Container>
     </>
   );
