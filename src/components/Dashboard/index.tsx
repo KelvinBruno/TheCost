@@ -4,15 +4,15 @@ import {
   BtnRegistroDash,
   Container,
   LabelDash,
-  Meta,
-  Resumo,
   Status,
   Vazio,
 } from "./style.module";
 import logo from "../../assets/logo.png";
 import Metas from "../Metas";
+import Resumo from "../Resumo";
 
 export function Dashboard() {
+  const num = false;
   return (
     <>
       <Header>
@@ -58,9 +58,8 @@ export function Dashboard() {
         ) : (
           <ListaCards />
         )}
-
+        <Resumo />
         <Metas></Metas>
-
       </Container>
     </>
   );
