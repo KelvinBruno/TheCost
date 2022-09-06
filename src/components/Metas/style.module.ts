@@ -77,5 +77,5 @@ export const BtnRegistroMeta = styled(BtnNovoRegistro)`
     font-family: 'Inter', sans-serif; 
 `
 
-
+export const BtnEditarMeta = styled(BtnRegistroMeta)``
 
