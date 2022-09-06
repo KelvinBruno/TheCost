@@ -4,8 +4,6 @@ import {
   BtnRegistroDash,
   Container,
   LabelDash,
-  Meta,
-  Resumo,
   Status,
   Vazio,
 } from "./style.module";
@@ -18,6 +16,9 @@ import { ModalRegistro } from "../ModalRegistro";
 
 export function Dashboard() {
   const { OpenModalRegister } = useContext(IsOpenModalContext);
+import Resumo from "../Resumo";
+
+export function Dashboard() {
   const num = false;
   return (
     <>
@@ -40,7 +41,7 @@ export function Dashboard() {
         ) : (
           <ListaCards />
         )}
-
+        <Resumo />
         <Metas></Metas>
       </Container>
     </>

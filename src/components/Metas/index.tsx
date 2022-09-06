@@ -42,6 +42,7 @@ function Metas() {
         <Meta>
           <div>
             <h2>Meta</h2>
+
             <BtnRegistroMeta>Nova Meta</BtnRegistroMeta>
           </div>
         </Meta>

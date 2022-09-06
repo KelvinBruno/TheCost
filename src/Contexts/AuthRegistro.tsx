@@ -22,6 +22,7 @@ export const AuthRegistroContext = createContext({} as IAuthRegistroContext)
 
 const AuthRegistro = ({ children }: IAuthProviderProps) => {
     const submitRegistro = async (data: IRegistro) => {
+
         await api.post("/users", data)
         .then((response) => {
             console.log(data)

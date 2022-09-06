@@ -18,6 +18,9 @@ import {
 } from "./style.module";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import api from "../../services/api";
+import { toast } from 'react-toastify';
+
 
 interface IModal {
   id?: string;
@@ -33,11 +36,8 @@ interface FormValues {
 }
 
 export function ModalRegistro({ id, editar }: IModal) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>();
+  const {register, handleSubmit, formState: { errors },} = useForm<FormValues>();
+  
   const onSubmit = handleSubmit((data) => {
     let { value } = data;
     console.log(data.value);
@@ -53,7 +53,8 @@ export function ModalRegistro({ id, editar }: IModal) {
         Outros rendimentos
       </option>
     </>
-  );
+  )
+
   const [tipo, setTipo] = useState("");
 
   if (editar) {
@@ -72,21 +73,39 @@ export function ModalRegistro({ id, editar }: IModal) {
           Veículos
         </option>
       </>
-    );
+    )
   }
 
-  function fechaModal() {}
+  const addRegistro = async (data: FormValues) => {
+    await api.post("/data", data)
+    .then((response) => toast.success("Registro criado com sucesso"))
+    .catch((error) => toast.error("Ops! Algo deu errado!"))
+  }
+
+  const editarRegistro = async (data: FormValues) => {
+    await api.patch("/data", data)
+    .then((response) => toast.success("Registro editado com sucesso"))
+    .catch((error) => toast.error("Ops! Algo deu errado!"))
+  }
+
+  function submitData(data: FormValues){
+    if (editar) {
+      editarRegistro(data)
+    } else {
+      addRegistro(data)
+    }
+  }
 
   return (
     <Modal>
       <ComponenteModal>
         <DivTitle>
           <Title>{tituloModal}</Title>
-          <BotaoFechar onClick={() => fechaModal()}>
+          <BotaoFechar>
             <MdClear />
           </BotaoFechar>
         </DivTitle>
-        <FormModal onSubmit={onSubmit}>
+        <FormModal onSubmit={handleSubmit(submitData)}>
           <InputsGroup>
             <LabelModal htmlFor="descricao">Descrição</LabelModal>
             <Input
@@ -140,7 +159,7 @@ export function ModalRegistro({ id, editar }: IModal) {
               />
             </ContainerInputGroup>
           </InputsGroup>
-          <BtnSalvar>Salvar</BtnSalvar>
+          <BtnSalvar type="submit">Salvar</BtnSalvar>
         </FormModal>
       </ComponenteModal>
     </Modal>
