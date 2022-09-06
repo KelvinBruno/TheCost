@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Centralize,
@@ -60,12 +60,11 @@ const Perfil = () => {
       .email("Deve ser um email")
       .required("O email é obrigatório"),
 
-    password: yup
-      .string(),
-      // .matches(
-      //   /^(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-      //   "Senha com no mínimo 8 caracteres. Necessário ter letras, números e ao menos um símbolo"
-      // ),
+    password: yup.string(),
+    // .matches(
+    //   /^(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+    //   "Senha com no mínimo 8 caracteres. Necessário ter letras, números e ao menos um símbolo"
+    // ),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password")], "A confirmação deve ser igual a senha"),
@@ -106,7 +105,11 @@ const Perfil = () => {
 
           <Centralize>
             <ImgPerfil
-              src={ user?.image ? user.image :"https://epipoca.com.br/wp-content/uploads/2022/04/luffy-one-piece-1015.jpg"}
+              src={
+                user?.image
+                  ? user.image
+                  : "https://epipoca.com.br/wp-content/uploads/2022/04/luffy-one-piece-1015.jpg"
+              }
               alt=""
             />
           </Centralize>

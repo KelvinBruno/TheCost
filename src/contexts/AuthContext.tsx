@@ -49,12 +49,13 @@ export function AuthProvider({ children }: IAuthChildren) {
       if (response.status === 200) {
         const { user, accessToken } = response.data;
         localStorage.setItem("@the-cost:token", accessToken);
+        
 
         api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
         setUser(user);
-
-        navigate("/perfil");
+        console.log(accessToken)
+        navigate("/dashboard");
       }
     } catch (err) {
       toast.error("Usuário ou senha incorreto.");
