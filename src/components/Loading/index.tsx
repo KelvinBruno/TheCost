@@ -4,7 +4,7 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import LogoNome from "../../assets/logoNome.svg";
 import { Load, Screen } from "./style.module";
 import { Divpai } from "../../Pages/Login/styles";
-import { MetaContext } from "../../contexts/MetasContext";
+import { MetaContext } from "../../Contexts/MetasContext";
 
 export function Loading() {
   const { user, loading } = useContext(AuthContext);

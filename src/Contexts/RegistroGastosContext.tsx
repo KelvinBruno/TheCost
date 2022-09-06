@@ -41,6 +41,7 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
 
     try {
       const data = await api.get("/data");
+      console.log(data)
       const { data: Gastos } = data;
 
       setGastos(Gastos);
