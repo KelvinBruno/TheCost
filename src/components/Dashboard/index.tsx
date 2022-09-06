@@ -1,3 +1,4 @@
+import ListaCards from "../ListaCards";
 import {
   Header,
   BtnRegistroDash,
@@ -9,6 +10,7 @@ import {
   Vazio,
 } from "./style.module";
 import logo from "../../assets/logo.png";
+import Metas from "../Metas";
 
 export function Dashboard() {
   return (
@@ -48,20 +50,17 @@ export function Dashboard() {
           <BtnRegistroDash>Novo Registro</BtnRegistroDash>
         </Status>
 
-        <Vazio>
-          <img src="./ovni.svg" alt="ovni"></img>
-          <p>Nenhum registro foi encontrado...</p>
-        </Vazio>
+        {num ? (
+          <Vazio>
+            <img src="./ovni.svg" alt="ovni"></img>
+            <p>Nenhum registro foi encontrado...</p>
+          </Vazio>
+        ) : (
+          <ListaCards />
+        )}
 
-        <Resumo>
-          <h2>Resumo</h2>
-          <p>Aguardando novos registros...</p>
-        </Resumo>
+        <Metas></Metas>
 
-        <Meta>
-          <h2>Meta</h2>
-          <p>Aguardando novos registros...</p>
-        </Meta>
       </Container>
     </>
   );

@@ -1,6 +1,13 @@
-import { Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react";
+import {
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+  createContext,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { useNavigate } from "react-router-dom";
-import { createContext } from "vm";
 import api from "../services/api";
 import { AuthContext } from "./AuthContext";
 
@@ -8,7 +15,7 @@ interface IMetaChildren {
   children: ReactNode;
 }
 
-export interface IMeta{
+export interface IMeta {
   objetivo: string;
   value: number;
   done: number;
@@ -17,29 +24,30 @@ export interface IMeta{
 }
 
 interface IMetaContext {
-  CarregarMeta: () => Promise<void>;
   setMetas: Dispatch<SetStateAction<never[]>>;
   metas: IMeta[];
+  carregaMeta: () => Promise<void>;
 }
 
-export const MetaContext = createContext({} as IMetaContext);
+export const MetaContext = createContext<IMetaContext>({} as IMetaContext);
 
-export function MetaProvider({ children }: IMetaChildren){
-  const [ metas, setMetas ] = useState([])
+export function MetaProvider({ children }: IMetaChildren) {
+  const [metas, setMetas] = useState([]);
+  const navigate = useNavigate();
+  const { setLoading } = useContext(AuthContext);
 
-  async function CarregaMeta() {
+  async function carregaMeta() {
     const token = localStorage.getItem("@the-cost:token");
-    const { setLoading } = useContext(AuthContext);
-      const navigate = useNavigate();
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     if (token) {
       try {
         const data = await api.get("/metas");
         const { data: Metas } = data;
 
-        setMetas(Metas)
+        setMetas(Metas);
       } catch (error) {
-        navigate("/");
+        console.error(error);
       } finally {
         setLoading(false);
       }
@@ -49,12 +57,12 @@ export function MetaProvider({ children }: IMetaChildren){
   }
 
   useEffect(() => {
-    CarregaMeta();
-  }, [metas]);
+    carregaMeta();
+  }, []);
 
-    return (
-      <MetaContext.Provider value={{ CarregaMeta, metas, setMetas }}>
-        {children}
-      </MetaContext.Provider>
-    );
+  return (
+    <MetaContext.Provider value={{ carregaMeta, metas, setMetas }}>
+      {children}
+    </MetaContext.Provider>
+  );
 }

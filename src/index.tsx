@@ -5,7 +5,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+<<<<<<< HEAD
 import { AuthProvider } from "./Contexts/AuthContext";
+=======
+import { AuthProvider } from "./contexts/AuthContext";
+import { MetaProvider } from "./contexts/MetasContext";
+import { RegistroGastosProvider } from "./contexts/RegistroGastosContext";
+>>>>>>> 4212bbfa1fab6c438eb76aae4c670c5b15aa5fe4
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,7 +20,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-          <App />
+        <RegistroGastosProvider>
+          <MetaProvider>
+            <App />
+          </MetaProvider>
+        </RegistroGastosProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
