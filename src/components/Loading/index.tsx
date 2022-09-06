@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../Contexts/AuthContext";
 import LogoNome from "../../assets/logoNome.svg";
 import { Load, Screen } from "./style.module";
 import { Divpai } from "../../Pages/Login/styles";

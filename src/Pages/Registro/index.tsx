@@ -5,7 +5,7 @@ import { Centralize, Container, FormRegistro, Header, InputForm, LabelForm } fro
 import { BsArrowLeftCircle } from "react-icons/bs"
 import { useContext } from "react";
 import { BtnCadastrar } from "../../styles/global";
-import { AuthRegistroContext, IRegistro } from "../../contexts/AuthRegistro";
+import { AuthRegistroContext, IRegistro } from "../../Contexts/AuthRegistro";
 
 const Registro = () => {
     const schema = yup.object({

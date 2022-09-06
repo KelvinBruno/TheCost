@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Dashboard } from "../components/Dashboard";
 import { Loading } from "../components/Loading";
-import { Registro } from "../Pages/Registro";
+import Registro from "../Pages/Registro";
 import { Login } from "../Pages/Login";
 
 export function Router() {

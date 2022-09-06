@@ -7,7 +7,7 @@ const Metas = () => {
 
     return(
         <>
-            {objetivo.length > 0 ? objetivo.map((item) => (
+            {/* {objetivo.length > 0 ? objetivo.map((item) => (
                 <Meta>
                     <div className="centralize-header-metas">
                         <h2>Meta</h2>
@@ -27,7 +27,7 @@ const Metas = () => {
                         <BtnRegistroMeta>Novo Registro</BtnRegistroMeta>
                     </div>
                 </Meta>
-            )}
+            )} */}
         </> 
     )
 }

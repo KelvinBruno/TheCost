@@ -2217,8 +2217,6 @@
   dependencies:
     react-select "*"
 
-<<<<<<< HEAD
-=======
 "@types/react-toastify@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@types/react-toastify/-/react-toastify-4.1.0.tgz#604e712855dd677916d5c66af595d3b590f5d95d"
@@ -2226,7 +2224,6 @@
   dependencies:
     react-toastify "*"
 
->>>>>>> c4637924bdbf153827a2d9c43e2b9e68302eb6d3
 "@types/react-transition-group@^4.4.0":
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.5.tgz#aae20dcf773c5aa275d5b9f7cdbca638abc5e416"
