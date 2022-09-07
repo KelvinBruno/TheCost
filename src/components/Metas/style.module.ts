@@ -59,6 +59,9 @@ export const Meta = styled.div`
     font-size: 16px;
     font-family: "Inter", sans-serif;
   }
+  @media (min-width: 1200px) {
+    width: 300px;
+  }
 `;
 
 export const BtnRegistroMeta = styled(BtnNovoRegistro)`
@@ -74,4 +77,4 @@ export const BtnRegistroMeta = styled(BtnNovoRegistro)`
   font-family: "Inter", sans-serif;
 `;
 
-export const BtnEditarMeta = styled(BtnRegistroMeta)``
+export const BtnEditarMeta = styled(BtnRegistroMeta)``;

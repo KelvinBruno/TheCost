@@ -17,6 +17,8 @@ export function Dashboard() {
     Id,
     Data,
   } = useContext(IsOpenModalContext);
+  const nome = localStorage.getItem("@the-cost:name");
+  const primeiraLetra = nome.split("")[0];
 
   return (
     <>
@@ -38,18 +40,21 @@ export function Dashboard() {
       )}
 
       <Header>
-        <div className="centralize-logo">
-          <img src={logo} alt="Logo The Cost"></img>
-          <h2>The Cost</h2>
+        <div>
+          <img src={logo} alt="Logo The Cost" />
+          <button>{primeiraLetra}</button>
         </div>
-        <button>Perfil</button>
       </Header>
 
       <Container>
-        <HeaderCards></HeaderCards>
-        <ListaCards />
-        <Resumo />
-        <Metas></Metas>
+        <div className="ContainerResumoMetas">
+          <Resumo />
+          <Metas />
+        </div>
+        <div>
+          <HeaderCards></HeaderCards>
+          <ListaCards />
+        </div>
       </Container>
     </>
   );

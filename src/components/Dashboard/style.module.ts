@@ -5,23 +5,42 @@ export const Header = styled.header`
   width: 100%;
   height: 6rem;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   background-color: var(--blue-2);
   font-family: "Inter", sans-serif;
-  .centralize-logo {
+  div {
+    width: 55%;
+    margin-left: 40%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding-left: 10px;
-  }
-  .icon {
-    color: var(--white);
-    padding-right: 15px;
-    cursor: pointer;
-  }
-  h2 {
-    color: var(--white);
+    align-items: center;
+    img {
+      width: 15rem;
+    }
+    button {
+      margin-right: 5%;
+      width: 2.5rem;
+      height: 40%;
+      border-radius: 50%;
+      border: none;
+      font-size: 30px;
+      color: var(--blue-0);
+    }
+    @media (max-width: 1025px) {
+      margin-left: 35%;
+    }
+    @media (max-width: 700px) {
+      margin-left: 30%;
+      width: 65%;
+    }
+    @media (max-width: 470px) {
+      margin-left: 0;
+      width: 100%;
+    }
+    .icon {
+      color: var(--white);
+      padding-right: 15px;
+      cursor: pointer;
+    }
   }
 `;
 
@@ -29,7 +48,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  flex-direction: column;
+  flex-direction: column-reverse;
 
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
@@ -39,6 +58,11 @@ export const Container = styled.div`
   height: 100%;
 
   background-color: var(--blue-0);
+  @media (min-width: 1024px) {
+    height: 77vh;
+    flex-direction: row;
+    justify-content: space-around;
+  }
 `;
 
 export const Vazio = styled.div`
@@ -59,7 +83,7 @@ export const Vazio = styled.div`
     padding-bottom: 10px;
   }
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 768px) {
     width: 750px;
     height: 450px;
 
@@ -91,7 +115,7 @@ export const Status = styled.div`
     display: flex;
   }
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 768px) {
     width: 750px;
     height: 60px;
     justify-content: space-around;

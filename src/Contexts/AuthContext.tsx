@@ -49,12 +49,12 @@ export function AuthProvider({ children }: IAuthChildren) {
       if (response.status === 200) {
         const { user, accessToken } = response.data;
         localStorage.setItem("@the-cost:token", accessToken);
-        
+        localStorage.setItem("@the-cost:name", user.nome);
 
         api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
         setUser(user);
-        console.log(accessToken)
+        console.log(accessToken);
         navigate("/dashboard");
       }
     } catch (err) {

@@ -8,6 +8,7 @@ import {
   Header,
   InputForm,
   LabelForm,
+  P1,
 } from "./style.module";
 import { BsArrowLeftCircle } from "react-icons/bs";
 import { useContext } from "react";
@@ -64,7 +65,7 @@ export const Registro = () => {
               {...register("nome")}
             />
             <div className="yup-notification">
-              <p>{errors.nome?.message}</p>
+              <P1>{errors.nome?.message}</P1>
             </div>
           </Centralize>
 
@@ -77,7 +78,7 @@ export const Registro = () => {
               {...register("email")}
             />
             <div className="yup-notification">
-              <p>{errors.email?.message}</p>
+              <P1>{errors.email?.message}</P1>
             </div>
           </Centralize>
 
@@ -90,7 +91,7 @@ export const Registro = () => {
               {...register("password")}
             />
             <div className="yup-notification">
-              <p>{errors.password?.message}</p>
+              <P1>{errors.password?.message}</P1>
             </div>
           </Centralize>
 
@@ -103,7 +104,7 @@ export const Registro = () => {
               {...register("confirmPassword")}
             />
             <div className="yup-notification">
-              <p>{errors.confirmPassword?.message}</p>
+              <P1>{errors.confirmPassword?.message}</P1>
             </div>
           </Centralize>
 
@@ -116,7 +117,7 @@ export const Registro = () => {
               {...register("image")}
             />
             <div className="yup-notification">
-              <p>{errors.image?.message}</p>
+              <P1>{errors.image?.message}</P1>
             </div>
           </Centralize>
 

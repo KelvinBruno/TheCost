@@ -6,12 +6,20 @@ export const Div = styled.div`
   justify-content: flex-start;
   flex-direction: column;
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 768px) {
     width: 750px;
     height: 450px;
+    margin-top: 1rem;
 
     border-radius: 8px;
     background-color: var(--white);
+  }
+  @media (min-width: 1024px) {
+    width: 700px;
+  }
+  @media (min-width: 1200px) {
+    width: 850px;
+    height: 550px;
   }
 `;
 export const Ul = styled.ul`
@@ -77,7 +85,7 @@ export const Ul = styled.ul`
       display: none;
     }
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     width: 90%;
     height: 90%;
 
@@ -145,7 +153,7 @@ export const Header = styled.header`
   p:nth-child(5) {
     margin-right: 1rem;
   }
-  @media (max-width: 1023px) {
+  @media (max-width: 767px) {
     display: none;
   }
 `;
