@@ -17,11 +17,13 @@ import {
   Title,
 } from "./style.module";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface IModal {
   id?: string;
   editar?: boolean;
+  funcaoFechar: Dispatch<SetStateAction<boolean>>;
+  isOpen: boolean;
 }
 
 interface FormValues {
@@ -32,7 +34,7 @@ interface FormValues {
   value: number | string;
 }
 
-export function ModalRegistro({ id, editar }: IModal) {
+export function ModalRegistro({ id, editar, funcaoFechar, isOpen }: IModal) {
   const {
     register,
     handleSubmit,
@@ -75,7 +77,9 @@ export function ModalRegistro({ id, editar }: IModal) {
     );
   }
 
-  function fechaModal() {}
+  function fechaModal() {
+    funcaoFechar(!isOpen);
+  }
 
   return (
     <Modal>

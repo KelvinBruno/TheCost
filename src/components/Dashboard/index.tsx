@@ -17,11 +17,17 @@ import { IsOpenModalContext } from "../../contexts/ModalContext";
 import { ModalRegistro } from "../ModalRegistro";
 
 export function Dashboard() {
-  const { OpenModalRegister } = useContext(IsOpenModalContext);
+  const { OpenModalRegister, setOpenModalRegister } =
+    useContext(IsOpenModalContext);
   const num = false;
   return (
     <>
-      {OpenModalRegister && <ModalRegistro />}
+      {OpenModalRegister && (
+        <ModalRegistro
+          funcaoFechar={setOpenModalRegister}
+          isOpen={OpenModalRegister}
+        />
+      )}
       <Header>
         <div className="centralize-logo">
           <img src={logo} alt="Logo The Cost"></img>
