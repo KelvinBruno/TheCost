@@ -1,12 +1,5 @@
 import ListaCards from "../ListaCards";
-import {
-  Header,
-  BtnRegistroDash,
-  Container,
-  LabelDash,
-  Status,
-  Vazio,
-} from "./style.module";
+import { Header, Container, Vazio } from "./style.module";
 import logo from "../../assets/logo.png";
 import Metas from "../Metas";
 import { HeaderCards } from "../HeaderCards";
