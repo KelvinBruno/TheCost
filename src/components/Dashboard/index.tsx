@@ -1,20 +1,42 @@
 import ListaCards from "../ListaCards";
-import {
-  Header,
-  BtnRegistroDash,
-  Container,
-  LabelDash,
-  Status,
-  Vazio,
-} from "./style.module";
+import { Header, Container, Vazio } from "./style.module";
 import logo from "../../assets/logo.png";
 import Metas from "../Metas";
+import { HeaderCards } from "../HeaderCards";
+import { useContext } from "react";
+import { IsOpenModalContext } from "../../Contexts/ModalContext";
+import { ModalRegistro } from "../ModalRegistro";
 import Resumo from "../Resumo";
 
 export function Dashboard() {
-  const num = false;
+  const {
+    OpenModalRegister,
+    setOpenModalRegister,
+    OpenModalEditRegister,
+    setOpenModalEditRegister,
+    Id,
+    Data,
+  } = useContext(IsOpenModalContext);
+
   return (
     <>
+      {OpenModalRegister && (
+        <ModalRegistro
+          funcaoFechar={setOpenModalRegister}
+          isOpen={OpenModalRegister}
+        />
+      )}
+
+      {OpenModalEditRegister && (
+        <ModalRegistro
+          funcaoFechar={() => setOpenModalEditRegister(!OpenModalEditRegister)}
+          id={Id}
+          data={Data}
+          isOpen={OpenModalEditRegister}
+          editar
+        />
+      )}
+
       <Header>
         <div className="centralize-logo">
           <img src={logo} alt="Logo The Cost"></img>
@@ -24,40 +46,8 @@ export function Dashboard() {
       </Header>
 
       <Container>
-        <Status>
-          <div>
-            <LabelDash>Despesas/Receita:</LabelDash>
-            <select>
-              <option>Todos</option>
-              <option>Despesas</option>
-              <option>Receitas</option>
-            </select>
-          </div>
-
-          <div>
-            <LabelDash>Categoria:</LabelDash>
-            <select>
-              <option>Todos</option>
-              <option>Salário</option>
-              <option>Supermercado</option>
-              <option>Veículo</option>
-              <option>Contas</option>
-              <option>Moda/Beleza</option>
-              <option>Lazer</option>
-              <option>Viagem</option>
-            </select>
-          </div>
-          <BtnRegistroDash>Novo Registro</BtnRegistroDash>
-        </Status>
-
-        {num ? (
-          <Vazio>
-            <img src="./ovni.svg" alt="ovni"></img>
-            <p>Nenhum registro foi encontrado...</p>
-          </Vazio>
-        ) : (
-          <ListaCards />
-        )}
+        <HeaderCards></HeaderCards>
+        <ListaCards />
         <Resumo />
         <Metas></Metas>
       </Container>

@@ -1,13 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { RegistroGastosContext } from "../../contexts/RegistroGastosContext";
+import { RegistroGastosContext } from "../../Contexts/RegistroGastosContext";
 
 import { ResumoDiv, DespesasResumoTitulo } from "./style.module";
-import { IGastos } from "../../contexts/RegistroGastosContext";
-
-interface IReceitasProps {
-  acc: number;
-  gasto: IGastos[];
-}
 
 function Resumo() {
   const { gastos } = useContext(RegistroGastosContext);

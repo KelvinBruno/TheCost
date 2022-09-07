@@ -41,7 +41,6 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
 
     try {
       const data = await api.get("/data");
-      console.log(data);
       const { data: Gastos } = data;
 
       setGastos(Gastos);
@@ -52,7 +51,7 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
 
   useEffect(() => {
     carregaGastos();
-  }, []);
+  }, [gastos]);
 
   return (
     <RegistroGastosContext.Provider

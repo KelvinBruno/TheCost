@@ -15,23 +15,28 @@ import {
   Title,
 } from "./style.module";
 import { useForm } from "react-hook-form";
+import { Dispatch, SetStateAction } from "react";
+import api from "../../services/api";
+import { toast } from "react-toastify";
 
 interface IModal {
   id?: string;
   editar?: boolean;
+  funcaoFechar: Dispatch<SetStateAction<boolean>>;
+  isOpen: boolean;
 }
 
-interface FormValues {
-  description: string;
+interface metaValues {
+  objetivo: string;
   value: string | number;
 }
 
-export function ModalMeta({ id, editar }: IModal) {
+export function ModalMeta({ id, editar, funcaoFechar, isOpen }: IModal) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<metaValues>();
   const onSubmit = handleSubmit((data) => {
     let { value } = data;
     console.log(data.value);
@@ -52,7 +57,36 @@ export function ModalMeta({ id, editar }: IModal) {
     tituloModal = "Criar Meta";
   }
 
-  function fechaModal() {}
+  function fechaModal() {
+    funcaoFechar(!isOpen);
+  }
+
+  const addMeta = async (data: metaValues) => {
+    await api.post("/metas", data)
+      .then((response) => toast.success("Meta criada com sucesso"))
+      .catch((error) => toast.error("Ops! Algo deu errado!"));
+  };
+
+  const editarMeta = async (data: metaValues) => {
+    await api.patch("/metas", data)
+      .then((response) => toast.success("Meta editada com sucesso"))
+      .catch((error) => toast.error("Ops! Algo deu errado!"));
+  };
+
+  const deletarMeta = async () => {
+    await api.delete("/metas")
+    .then((response) => toast.success("Meta deletada com sucesso"))
+    .catch((error) => toast.error("Ops! Algo deu errado!"));
+  }
+
+  function submitData(data: metaValues) {
+    if (editar) {
+      editarMeta(data);
+      deletarMeta()
+    } else {
+      addMeta(data);
+    }
+  }
 
   return (
     <Modal>
@@ -63,14 +97,14 @@ export function ModalMeta({ id, editar }: IModal) {
             <MdClear />
           </BotaoFechar>
         </DivTitle>
-        <FormModal onSubmit={onSubmit}>
+        <FormModal onSubmit={handleSubmit(submitData)}>
           <InputsGroup>
             <LabelModal htmlFor="objetivo">Objetivo</LabelModal>
             <Input
               type="text"
               id="objetivo"
               placeholder="Insira a descrição do objetivo"
-              {...register("description")}
+              {...register("objetivo")}
             />
           </InputsGroup>
           <InputsGroup>
