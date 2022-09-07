@@ -2,11 +2,11 @@ import ListaCards from "../ListaCards";
 import { Header, Container, Vazio } from "./style.module";
 import logo from "../../assets/logo.png";
 import Metas from "../Metas";
-import { HeaderCards } from "../HeaderCards";
 import { useContext } from "react";
 import { IsOpenModalContext } from "../../Contexts/ModalContext";
 import { ModalRegistro } from "../ModalRegistro";
 import Resumo from "../Resumo";
+import { HeaderCards } from "../HeaderCards";
 
 export function Dashboard() {
   const {

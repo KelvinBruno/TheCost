@@ -14,9 +14,9 @@ import { ImgPerfil } from "./style.module";
 import { BsArrowLeftCircle } from "react-icons/bs";
 import { useContext } from "react";
 import { BtnCadastrar } from "../../styles/global";
-import { IRegistro } from "../../Contexts/AuthRegistro";
-import { AuthContext } from "../../Contexts/AuthContext";
 import api from "../../services/api";
+import { AuthContext } from "../../Contexts/AuthContext";
+import { IRegistro } from "../../Contexts/AuthRegistro";
 
 interface IEditar {
   nome: string;
