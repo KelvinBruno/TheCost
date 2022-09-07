@@ -14,12 +14,13 @@ export const Div = styled.div`
     border-radius: 8px;
     background-color: var(--white);
   }
+
   @media (min-width: 1024px) {
     width: 700px;
+    height: 400px;
   }
   @media (min-width: 1200px) {
-    width: 850px;
-    height: 550px;
+    width: 750px;
   }
 `;
 export const Ul = styled.ul`
