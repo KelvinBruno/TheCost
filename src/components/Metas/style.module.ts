@@ -65,14 +65,13 @@ export const BtnRegistroMeta = styled(BtnNovoRegistro)`
   height: 30px;
   width: 220px;
   min-width: 50px;
-
   display: flex;
   align-items: center;
-
   padding: 0px;
   border-radius: 4px;
-
   font-size: 13px;
   border: 0.5px solid black;
   font-family: "Inter", sans-serif;
 `;
+
+export const BtnEditarMeta = styled(BtnRegistroMeta)``

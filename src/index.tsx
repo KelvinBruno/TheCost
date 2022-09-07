@@ -16,15 +16,15 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <IsOpenModalProvider>
-        <AuthProvider>
-          <RegistroGastosProvider>
-            <MetaProvider>
+      <AuthProvider>
+        <RegistroGastosProvider>
+          <MetaProvider>
+            <IsOpenModalProvider>
               <App />
-            </MetaProvider>
-          </RegistroGastosProvider>
-        </AuthProvider>
-      </IsOpenModalProvider>
+            </IsOpenModalProvider>
+          </MetaProvider>
+        </RegistroGastosProvider>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
