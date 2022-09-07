@@ -1,91 +1,96 @@
-import styled from "styled-components"
-import { Label, Input, Form } from "../../styles/global"
+import styled from "styled-components";
+import { Label, Input, Form } from "../../styles/global";
+import { P } from "../Login/styles";
 
 export const Header = styled.header`
-    width: 100%;
-    height: 6rem;
+  width: 100%;
+  height: 6rem;
 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: var(--blue-2);
+  font-family: "Inter", sans-serif;
+
+  .centralize-logo {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-left: 10px;
+  }
 
-    background-color: var(--blue-2);
-    font-family: 'Inter', sans-serif;
+  .icon {
+    color: var(--white);
+    padding-right: 15px;
+    cursor: pointer;
+  }
 
-    .centralize-logo{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding-left: 10px;
-    }
-
-    .icon{
-        color: var(--white);
-        padding-right: 15px;
-        cursor: pointer;
-    }
-
-    h2{
-        color: var(--white);
-    }
-`
+  h2 {
+    color: var(--white);
+  }
+`;
 
 export const Container = styled.div`
-    height: 100%;
+  height: 100%;
 
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 
-    background-color: var(--blue-0);
-`
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 
-export const FormRegistro = styled(Form)`      
-    width: 15rem;
-    height: auto;
-    border-radius: 16px;
-    background-color: var(--blue-3);
+  background-color: var(--blue-0);
+`;
 
-    label{
-        text-align: start;
-        width: 100%;
-    }
+export const FormRegistro = styled(Form)`
+  width: 15rem;
+  height: auto;
+  border-radius: 16px;
+  background-color: var(--blue-3);
 
-    h2{
-        font-size: 28px;
-        font-weight: 700;
+  label {
+    text-align: start;
+    width: 100%;
+  }
 
-        color: var(--white);
-        font-family: 'Inter', sans-serif;
-    }
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
 
-    @media only screen and (min-width: 768px) {
-        width: 18rem;  
-    }
-`
+    color: var(--white);
+    font-family: "Inter", sans-serif;
+  }
+
+  @media only screen and (min-width: 768px) {
+    width: 18rem;
+  }
+`;
 
 export const Centralize = styled.div`
-    width: 95%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-`
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`;
 
 export const LabelForm = styled(Label)`
-    margin: 10px;
-    padding-bottom: 5px;
+  margin: 10px;
+  padding-bottom: 5px;
 
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif; 
-`
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+`;
 
 export const InputForm = styled(Input)`
-    width: 100%;
-    height: 2.3rem;
-    background-color: var(--white); 
-`
+  width: 100%;
+  height: 2.3rem;
+  background-color: var(--white);
+`;
+export const P1 = styled(P)`
+  margin-top: 0;
+  text-align: start;
+`;

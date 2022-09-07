@@ -59,7 +59,7 @@ export const Vazio = styled.div`
     padding-bottom: 10px;
   }
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 768px) {
     width: 750px;
     height: 450px;
 
@@ -86,16 +86,23 @@ export const Status = styled.div`
   gap: 10px;
   background-color: var(--white);
   border-radius: 8px;
+  margin-top: 0.5rem;
 
   div {
     display: flex;
   }
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 768px) {
     width: 750px;
     height: 60px;
     justify-content: space-around;
     flex-direction: row;
+  }
+  @media (min-width: 1024px) {
+    width: 700px;
+  }
+  @media (min-width: 1200px) {
+    width: 850px;
   }
 `;
 
@@ -105,6 +112,9 @@ export const BtnRegistroDash = styled(BtnNovoRegistro)`
   font-size: 16px;
   border: 0.5px solid black;
   border-radius: 4px;
+  @media (min-width: 1024px) {
+    width: 70px;
+  }
 `;
 
 export const Resumo = styled.div`
@@ -175,21 +185,21 @@ export const LabelDash = styled(Label)`
 `;
 
 export const Select = styled.select`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: auto;
-    border-radius: 4px;
-    padding: 0 13px;
-    background-color: var(--white);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: auto;
+  border-radius: 4px;
+  padding: 0 13px;
+  background-color: var(--white);
 
-    :focus{
-        box-shadow: 0 0 0 0;
-        outline: 0;
-    }
+  :focus {
+    box-shadow: 0 0 0 0;
+    outline: 0;
+  }
 `;
 
 export const SelectTipo = styled(Select)`
   width: 145px;
-  min-width: 145px
-` 
+  min-width: 145px;
+`;
