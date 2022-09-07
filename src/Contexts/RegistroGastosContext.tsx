@@ -6,6 +6,7 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
+import { toast } from "react-toastify";
 import api from "../services/api";
 
 interface IRegistroGastosChildren {
@@ -26,6 +27,10 @@ interface IRegistroGastosContext {
   gastos: IGastos[];
   carregaGastos: () => Promise<void>;
   setGastos: Dispatch<SetStateAction<never[]>>;
+  temGastos: boolean;
+  despesa: number;
+  receita: number;
+  deletaGasto(id: number): Promise<void>;
 }
 
 export const RegistroGastosContext = createContext<IRegistroGastosContext>(
@@ -34,6 +39,9 @@ export const RegistroGastosContext = createContext<IRegistroGastosContext>(
 
 export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
   const [gastos, setGastos] = useState([]);
+  const [temGastos, setTemGastos] = useState(false);
+  const [receita, setReceita] = useState(0);
+  const [despesa, setDespesa] = useState(0);
 
   async function carregaGastos() {
     const token = localStorage.getItem("@the-cost:token");
@@ -42,6 +50,30 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
     try {
       const data = await api.get("/data");
       const { data: Gastos } = data;
+      if (Gastos.length !== 0) {
+        let arrayDespesas = Gastos.filter(
+          (gasto: IGastos) => gasto.type === "Despesas"
+        );
+        let arrayReceitas = Gastos.filter(
+          (gasto: IGastos) => gasto.type === "Receitas"
+        );
+
+        setReceita(
+          arrayReceitas.reduce(function (soma: number, atual: IGastos) {
+            return soma + atual.value;
+          }, 0)
+        );
+        console.log(receita);
+        setDespesa(
+          arrayDespesas.reduce(function (soma: number, atual: IGastos) {
+            return soma + atual.value;
+          }, 0)
+        );
+
+        setTemGastos(true);
+      } else {
+        setTemGastos(false);
+      }
 
       setGastos(Gastos);
     } catch (error) {
@@ -49,13 +81,30 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
     }
   }
 
+  async function deletaGasto(id: number) {
+    api
+      .delete(`data/${id}`)
+      .then(() => toast.success("Registro deletado com sucesso."))
+      .catch((error) => toast.error("ops, ocorreu um erro."));
+  }
+
   useEffect(() => {
+    console.log("gastos");
+    console.log(temGastos);
     carregaGastos();
   }, [gastos]);
 
   return (
     <RegistroGastosContext.Provider
-      value={{ carregaGastos, gastos, setGastos }}
+      value={{
+        carregaGastos,
+        gastos,
+        setGastos,
+        temGastos,
+        despesa,
+        receita,
+        deletaGasto,
+      }}
     >
       {children}
     </RegistroGastosContext.Provider>
