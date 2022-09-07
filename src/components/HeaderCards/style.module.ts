@@ -72,6 +72,9 @@ export const Vazio = styled.div`
       font-weight: 600;
     }
   }
+  @media (min-width: 1024px) {
+    width: 700px;
+  }
 `;
 
 export const Status = styled.div`
@@ -101,8 +104,9 @@ export const Status = styled.div`
   @media (min-width: 1024px) {
     width: 700px;
   }
+
   @media (min-width: 1200px) {
-    width: 850px;
+    width: 750px;
   }
 `;
 

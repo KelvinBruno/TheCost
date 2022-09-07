@@ -70,7 +70,6 @@ export const Vazio = styled.div`
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  background-color: red;
 
   img {
     width: 280px;
@@ -95,6 +94,9 @@ export const Vazio = styled.div`
       font-size: 16px;
       font-weight: 600;
     }
+  }
+  @media (min-width: 1024px) {
+    width: 700px;
   }
 `;
 
