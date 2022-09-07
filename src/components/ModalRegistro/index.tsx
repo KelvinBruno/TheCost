@@ -19,8 +19,7 @@ import {
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import api from "../../services/api";
-import { toast } from 'react-toastify';
-
+import { toast } from "react-toastify";
 
 interface IModal {
   id?: string;
@@ -36,8 +35,12 @@ interface FormValues {
 }
 
 export function ModalRegistro({ id, editar }: IModal) {
-  const {register, handleSubmit, formState: { errors },} = useForm<FormValues>();
-  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
+
   const onSubmit = handleSubmit((data) => {
     let { value } = data;
     console.log(data.value);
@@ -53,7 +56,7 @@ export function ModalRegistro({ id, editar }: IModal) {
         Outros rendimentos
       </option>
     </>
-  )
+  );
 
   const [tipo, setTipo] = useState("");
   // const optionsTipo = [
@@ -85,26 +88,28 @@ export function ModalRegistro({ id, editar }: IModal) {
           Veículos
         </option>
       </>
-    )
+    );
   }
 
   const addRegistro = async (data: FormValues) => {
-    await api.post("/data", data)
-    .then((response) => toast.success("Registro criado com sucesso"))
-    .catch((error) => toast.error("Ops! Algo deu errado!"))
-  }
+    await api
+      .post("/data", data)
+      .then((response) => toast.success("Registro criado com sucesso"))
+      .catch((error) => toast.error("Ops! Algo deu errado!"));
+  };
 
   const editarRegistro = async (data: FormValues) => {
-    await api.patch("/data", data)
-    .then((response) => toast.success("Registro editado com sucesso"))
-    .catch((error) => toast.error("Ops! Algo deu errado!"))
-  }
+    await api
+      .patch("/data", data)
+      .then((response) => toast.success("Registro editado com sucesso"))
+      .catch((error) => toast.error("Ops! Algo deu errado!"));
+  };
 
-  function submitData(data: FormValues){
+  function submitData(data: FormValues) {
     if (editar) {
-      editarRegistro(data)
+      editarRegistro(data);
     } else {
-      addRegistro(data)
+      addRegistro(data);
     }
   }
 

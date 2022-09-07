@@ -6,286 +6,245 @@ import { FaTshirt, FaTrash, FaPen } from "react-icons/fa";
 import Faturas from "../../assets/Faturas.svg";
 import Money from "../../assets/Vector.svg";
 import { BtnEditar, BtnExcluir } from "../../styles/global";
+import { useContext } from "react";
+import { RegistroGastosContext } from "../../Contexts/RegistroGastosContext";
+import ModalEditarRegistro from "../ModalEditarRegistro";
+import { IsOpenModalContext } from "../../Contexts/ModalContext";
 function ListaCards() {
-  interface ITeste {
-    description: string;
-    type: string;
-    category: string;
-    value: number;
-    date: string;
-    userId: number;
-    id: number;
-  }
-  const DataBase: ITeste[] = [
-    {
-      description: "Salário do mês",
-      type: "Receita",
-      category: "Salário",
-      value: 3040,
-      date: "01/08/2022",
-      userId: 2,
-      id: 1,
-    },
-    {
-      description: "Salário do mês",
-      type: "Receita",
-      category: "Salário",
-      value: 3040,
-      date: "01/08/2022",
-      userId: 2,
-      id: 1,
-    },
-    {
-      description: "Salário do mês",
-      type: "Receita",
-      category: "Salário",
-      value: 3040,
-      date: "01/08/2022",
-      userId: 2,
-      id: 1,
-    },
-    {
-      description: "Salário do mês",
-      type: "Receita",
-      category: "Salário",
-      value: 3040,
-      date: "01/08/2022",
-      userId: 2,
-      id: 1,
-    },
-    {
-      description: "Compras do mês",
-      type: "Receita",
-      category: "Veículo",
-      value: 200,
-      date: "04/08/2022",
-      userId: 2,
-      id: 2,
-    },
-    {
-      description: "Valor legal",
-      type: "Despesa",
-      category: "Contas",
-      value: 157890,
-      date: "01/09/2022",
-      userId: 3,
-      id: 3,
-    },
-    {
-      description: "Valor legal",
-      type: "Despesa",
-      category: "Contas",
-      value: 157890,
-      date: "01/09/2022",
-      userId: 3,
-      id: 3,
-    },
-    {
-      description: "Valor legal",
-      type: "Despesa",
-      category: "Contas",
-      value: 157890,
-      date: "01/09/2022",
-      userId: 3,
-      id: 3,
-    },
-    {
-      description: "Valor legal",
-      type: "Despesa",
-      category: "Contas",
-      value: 157890,
-      date: "01/09/2022",
-      userId: 3,
-      id: 3,
-    },
-  ];
+  const { gastos } = useContext(RegistroGastosContext);
+
+  const { openEditar, setOpenEditar, setIdRegistro, DadosDefault } =
+    useContext(IsOpenModalContext);
   return (
-    <Div>
-      <Header>
-        <p>Categoria</p>
-        <p>Descrição</p>
-        <p>Data</p>
-        <p>Valor</p>
-        <p>Opções</p>
-      </Header>
-      <Ul>
-        {DataBase.map((data) =>
-          data.category === "Veículo" ? (
-            <li>
-              <section>
-                <section className="category">
-                  <AiFillCar size={"1.2rem"} />
-                  <P>{data.category}</P>
+    <>
+      {openEditar && <ModalEditarRegistro />}
+      <Div>
+        <Header>
+          <p>Categoria</p>
+          <p>Descrição</p>
+          <p>Data</p>
+          <p>Valor</p>
+          <p>Opções</p>
+        </Header>
+        <Ul>
+          {gastos.map((data) =>
+            data.category === "Veículo" ? (
+              <li>
+                <section>
+                  <section className="category">
+                    <AiFillCar size={"1.2rem"} />
+                    <P>{data.category}</P>
+                  </section>
+
+                  <p>{data.description}</p>
                 </section>
+                <P className="date">{data.date}</P>
 
-                <p>{data.description}</p>
-              </section>
-              <P className="date">{data.date}</P>
-
-              {data.type === "Despesa" ? (
-                <P color="#D10707">R${data.value}</P>
-              ) : (
-                <P color="#053770">R${data.value}</P>
-              )}
-              <section className="editar">
-                <BtnEditar>
-                  <FaPen />
-                </BtnEditar>
-                <BtnExcluir>
-                  <FaTrash />
-                </BtnExcluir>
-              </section>
-            </li>
-          ) : data.category === "Supermercado" ? (
-            <li>
-              <section>
-                <section className="category">
-                  <AiOutlineShoppingCart size={"1.2rem"} />
-                  <P>{data.category}</P>
+                {data.type === "Despesa" ? (
+                  <P color="#D10707">R${data.value}</P>
+                ) : (
+                  <P color="#053770">R${data.value}</P>
+                )}
+                <section className="editar">
+                  <BtnEditar
+                    onClick={() => {
+                      setIdRegistro(data.id);
+                      setOpenEditar(true);
+                    }}
+                  >
+                    <FaPen />
+                  </BtnEditar>
+                  <BtnExcluir>
+                    <FaTrash />
+                  </BtnExcluir>
                 </section>
+              </li>
+            ) : data.category === "Supermercado" ? (
+              <li>
+                <section>
+                  <section className="category">
+                    <AiOutlineShoppingCart size={"1.2rem"} />
+                    <P>{data.category}</P>
+                  </section>
 
-                <p>{data.description}</p>
-              </section>
-              <P className="date">{data.date}</P>
-              {data.type === "Despesa" ? (
-                <P color="#D10707">R${data.value}</P>
-              ) : (
-                <P color="#053770">R${data.value}</P>
-              )}
-              <section className="editar">
-                <BtnEditar>
-                  <FaPen />
-                </BtnEditar>
-                <BtnExcluir>
-                  <FaTrash />
-                </BtnExcluir>
-              </section>
-            </li>
-          ) : data.category === "Salário" ? (
-            <li>
-              <section>
-                <section className="category">
-                  <img src={Money} alt="money" />
-                  <P>{data.category}</P>
+                  <p>{data.description}</p>
                 </section>
-
-                <p>{data.description}</p>
-              </section>
-              <P className="date">{data.date}</P>
-              {data.type === "Despesa" ? (
-                <P color="#D10707">R${data.value}</P>
-              ) : (
-                <P color="#053770">R${data.value}</P>
-              )}
-              <section className="editar">
-                <BtnEditar>
-                  <FaPen />
-                </BtnEditar>
-                <BtnExcluir>
-                  <FaTrash />
-                </BtnExcluir>
-              </section>
-            </li>
-          ) : data.category === "Contas" ? (
-            <li>
-              <section>
-                <section className="category">
-                  <img src={Faturas} alt="faturas" />
-                  <P>{data.category}</P>
+                <P className="date">{data.date}</P>
+                {data.type === "Despesa" ? (
+                  <P color="#D10707">R${data.value}</P>
+                ) : (
+                  <P color="#053770">R${data.value}</P>
+                )}
+                <section className="editar">
+                  <BtnEditar
+                    onClick={() => {
+                      setIdRegistro(data.id);
+                      DadosDefault();
+                      setOpenEditar(true);
+                    }}
+                  >
+                    <FaPen />
+                  </BtnEditar>
+                  <BtnExcluir>
+                    <FaTrash />
+                  </BtnExcluir>
                 </section>
+              </li>
+            ) : data.category === "Salário" ? (
+              <li>
+                <section>
+                  <section className="category">
+                    <img src={Money} alt="money" />
+                    <P>{data.category}</P>
+                  </section>
 
-                <p>{data.description}</p>
-              </section>
-              <P className="date">{data.date}</P>
-              {data.type === "Despesa" ? (
-                <P color="#D10707">R${data.value}</P>
-              ) : (
-                <P color="#053770">R${data.value}</P>
-              )}
-              <section className="editar">
-                <BtnEditar>
-                  <FaPen />
-                </BtnEditar>
-                <BtnExcluir>
-                  <FaTrash />
-                </BtnExcluir>
-              </section>
-            </li>
-          ) : data.category === "Moda/Beleza" ? (
-            <li>
-              <section>
-                <section className="category">
-                  <FaTshirt size={"1.2rem"} />
-                  <P>{data.category}</P>
+                  <p>{data.description}</p>
                 </section>
-
-                <p>{data.description}</p>
-              </section>
-              <P className="date">{data.date}</P>
-              {data.type === "Despesa" ? (
-                <P color="#D10707">R${data.value}</P>
-              ) : (
-                <P color="#053770">R${data.value}</P>
-              )}
-              <section className="editar">
-                <FaPen className="hoverRed" />
-                <FaTrash className="hoverRed" />
-              </section>
-            </li>
-          ) : data.category === "Lazer" ? (
-            <li>
-              <section>
-                <section className="category">
-                  <BsCameraReelsFill size={"1.2rem"} />
-                  <P>{data.category}</P>
+                <P className="date">{data.date}</P>
+                {data.type === "Despesa" ? (
+                  <P color="#D10707">R${data.value}</P>
+                ) : (
+                  <P color="#053770">R${data.value}</P>
+                )}
+                <section className="editar">
+                  <BtnEditar
+                    onClick={() => {
+                      setIdRegistro(data.id);
+                      setOpenEditar(true);
+                    }}
+                  >
+                    <FaPen />
+                  </BtnEditar>
+                  <BtnExcluir>
+                    <FaTrash />
+                  </BtnExcluir>
                 </section>
+              </li>
+            ) : data.category === "Contas" ? (
+              <li>
+                <section>
+                  <section className="category">
+                    <img src={Faturas} alt="faturas" />
+                    <P>{data.category}</P>
+                  </section>
 
-                <p>{data.description}</p>
-              </section>
-              <P className="date">{data.date}</P>
-              {data.type === "Despesa" ? (
-                <P color="#D10707">R${data.value}</P>
-              ) : (
-                <P color="#053770">R${data.value}</P>
-              )}
-              <section className="editar">
-                <BtnEditar>
-                  <FaPen />
-                </BtnEditar>
-                <BtnExcluir>
-                  <FaTrash />
-                </BtnExcluir>
-              </section>
-            </li>
-          ) : (
-            <li>
-              <section>
-                <section className="category">
-                  <RiPlaneLine size={"1.2rem"} />
-                  <P>{data.category}</P>
+                  <p>{data.description}</p>
                 </section>
+                <P className="date">{data.date}</P>
+                {data.type === "Despesa" ? (
+                  <P color="#D10707">R${data.value}</P>
+                ) : (
+                  <P color="#053770">R${data.value}</P>
+                )}
+                <section className="editar">
+                  <BtnEditar
+                    onClick={() => {
+                      setIdRegistro(data.id);
+                      setOpenEditar(true);
+                    }}
+                  >
+                    <FaPen />
+                  </BtnEditar>
+                  <BtnExcluir>
+                    <FaTrash />
+                  </BtnExcluir>
+                </section>
+              </li>
+            ) : data.category === "Moda/Beleza" ? (
+              <li>
+                <section>
+                  <section className="category">
+                    <FaTshirt size={"1.2rem"} />
+                    <P>{data.category}</P>
+                  </section>
 
-                <p>{data.description}</p>
-              </section>
-              <P className="date">{data.date}</P>
-              {data.type === "Despesa" ? (
-                <P color="#D10707">R${data.value}</P>
-              ) : (
-                <P color="#053770">R${data.value}</P>
-              )}
-              <section className="editar">
-                <BtnEditar>
-                  <FaPen />
-                </BtnEditar>
-                <BtnExcluir>
-                  <FaTrash />
-                </BtnExcluir>
-              </section>
-            </li>
-          )
-        )}
-      </Ul>
-    </Div>
+                  <p>{data.description}</p>
+                </section>
+                <P className="date">{data.date}</P>
+                {data.type === "Despesa" ? (
+                  <P color="#D10707">R${data.value}</P>
+                ) : (
+                  <P color="#053770">R${data.value}</P>
+                )}
+                <section className="editar">
+                  <BtnEditar
+                    onClick={() => {
+                      setIdRegistro(data.id);
+                      setOpenEditar(true);
+                    }}
+                  >
+                    <FaPen />
+                  </BtnEditar>
+                  <BtnExcluir>
+                    <FaTrash />
+                  </BtnExcluir>
+                </section>
+              </li>
+            ) : data.category === "Lazer" ? (
+              <li>
+                <section>
+                  <section className="category">
+                    <BsCameraReelsFill size={"1.2rem"} />
+                    <P>{data.category}</P>
+                  </section>
+
+                  <p>{data.description}</p>
+                </section>
+                <P className="date">{data.date}</P>
+                {data.type === "Despesa" ? (
+                  <P color="#D10707">R${data.value}</P>
+                ) : (
+                  <P color="#053770">R${data.value}</P>
+                )}
+                <section className="editar">
+                  <BtnEditar
+                    onClick={() => {
+                      setIdRegistro(data.id);
+                      setOpenEditar(true);
+                    }}
+                  >
+                    <FaPen />
+                  </BtnEditar>
+                  <BtnExcluir>
+                    <FaTrash />
+                  </BtnExcluir>
+                </section>
+              </li>
+            ) : (
+              <li>
+                <section>
+                  <section className="category">
+                    <RiPlaneLine size={"1.2rem"} />
+                    <P>{data.category}</P>
+                  </section>
+
+                  <p>{data.description}</p>
+                </section>
+                <P className="date">{data.date}</P>
+                {data.type === "Despesa" ? (
+                  <P color="#D10707">R${data.value}</P>
+                ) : (
+                  <P color="#053770">R${data.value}</P>
+                )}
+                <section className="editar">
+                  <BtnEditar
+                    onClick={() => {
+                      setIdRegistro(data.id);
+                      setOpenEditar(true);
+                    }}
+                  >
+                    <FaPen />
+                  </BtnEditar>
+                  <BtnExcluir>
+                    <FaTrash />
+                  </BtnExcluir>
+                </section>
+              </li>
+            )
+          )}
+        </Ul>
+      </Div>
+    </>
   );
 }
 export default ListaCards;
