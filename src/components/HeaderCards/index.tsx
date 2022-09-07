@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { IsOpenModalContext } from "../../contexts/ModalContext";
+import { IsOpenModalContext } from "../../Contexts/ModalContext";
 import {
   BtnRegistroDash,
   LabelDash,
@@ -10,7 +10,7 @@ import {
 
 export function HeaderCards() {
   const [tipo, setTipo] = useState("");
-  const { OpenModalRegister, setOpenModalRegister } =
+  const { OpenModalRegister, setOpenModalRegister, setId, setData } =
     useContext(IsOpenModalContext);
 
   let optionTipo = (
