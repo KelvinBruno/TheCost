@@ -6,16 +6,16 @@ import { FaTshirt, FaTrash, FaPen } from "react-icons/fa";
 import Faturas from "../../assets/Faturas.svg";
 import Money from "../../assets/Vector.svg";
 import { BtnEditar, BtnExcluir } from "../../styles/global";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RegistroGastosContext } from "../../Contexts/RegistroGastosContext";
 import { Vazio } from "../Dashboard/style.module";
 import { IsOpenModalContext } from "../../Contexts/ModalContext";
 function ListaCards() {
-  const { gastos: DataBase } = useContext(RegistroGastosContext);
+  const { gastos, temGastos, deletaGasto } = useContext(RegistroGastosContext);
   const { setData, setId, setOpenModalEditRegister } =
     useContext(IsOpenModalContext);
 
-  if (DataBase.length !== 0) {
+  if (temGastos) {
     return (
       <Div>
         <Header>
@@ -26,7 +26,7 @@ function ListaCards() {
           <p>Opções</p>
         </Header>
         <Ul>
-          {DataBase.map((data) =>
+          {gastos.map((data) =>
             data.category === "Veículo" ? (
               <li key={data.id}>
                 <section>
@@ -39,7 +39,7 @@ function ListaCards() {
                 </section>
                 <P className="date">{data.date}</P>
 
-                {data.type === "Despesa" ? (
+                {data.type === "Despesas" ? (
                   <P color="#D10707">R${data.value}</P>
                 ) : (
                   <P color="#053770">R${data.value}</P>
@@ -54,7 +54,7 @@ function ListaCards() {
                   >
                     <FaPen />
                   </BtnEditar>
-                  <BtnExcluir>
+                  <BtnExcluir onClick={() => deletaGasto(data.id)}>
                     <FaTrash />
                   </BtnExcluir>
                 </section>
@@ -70,7 +70,7 @@ function ListaCards() {
                   <p>{data.description}</p>
                 </section>
                 <P className="date">{data.date}</P>
-                {data.type === "Despesa" ? (
+                {data.type === "Despesas" ? (
                   <P color="#D10707">R${data.value}</P>
                 ) : (
                   <P color="#053770">R${data.value}</P>
@@ -85,7 +85,7 @@ function ListaCards() {
                   >
                     <FaPen />
                   </BtnEditar>
-                  <BtnExcluir>
+                  <BtnExcluir onClick={() => deletaGasto(data.id)}>
                     <FaTrash />
                   </BtnExcluir>
                 </section>
@@ -101,7 +101,7 @@ function ListaCards() {
                   <p>{data.description}</p>
                 </section>
                 <P className="date">{data.date}</P>
-                {data.type === "Despesa" ? (
+                {data.type === "Despesas" ? (
                   <P color="#D10707">R${data.value}</P>
                 ) : (
                   <P color="#053770">R${data.value}</P>
@@ -116,7 +116,7 @@ function ListaCards() {
                   >
                     <FaPen />
                   </BtnEditar>
-                  <BtnExcluir>
+                  <BtnExcluir onClick={() => deletaGasto(data.id)}>
                     <FaTrash />
                   </BtnExcluir>
                 </section>
@@ -132,7 +132,7 @@ function ListaCards() {
                   <p>{data.description}</p>
                 </section>
                 <P className="date">{data.date}</P>
-                {data.type === "Despesa" ? (
+                {data.type === "Despesas" ? (
                   <P color="#D10707">R${data.value}</P>
                 ) : (
                   <P color="#053770">R${data.value}</P>
@@ -147,7 +147,7 @@ function ListaCards() {
                   >
                     <FaPen />
                   </BtnEditar>
-                  <BtnExcluir>
+                  <BtnExcluir onClick={() => deletaGasto(data.id)}>
                     <FaTrash />
                   </BtnExcluir>
                 </section>
@@ -163,7 +163,7 @@ function ListaCards() {
                   <p>{data.description}</p>
                 </section>
                 <P className="date">{data.date}</P>
-                {data.type === "Despesa" ? (
+                {data.type === "Despesas" ? (
                   <P color="#D10707">R${data.value}</P>
                 ) : (
                   <P color="#053770">R${data.value}</P>
@@ -184,7 +184,7 @@ function ListaCards() {
                   <p>{data.description}</p>
                 </section>
                 <P className="date">{data.date}</P>
-                {data.type === "Despesa" ? (
+                {data.type === "Despesas" ? (
                   <P color="#D10707">R${data.value}</P>
                 ) : (
                   <P color="#053770">R${data.value}</P>
@@ -199,7 +199,7 @@ function ListaCards() {
                   >
                     <FaPen />
                   </BtnEditar>
-                  <BtnExcluir>
+                  <BtnExcluir onClick={() => deletaGasto(data.id)}>
                     <FaTrash />
                   </BtnExcluir>
                 </section>
@@ -215,7 +215,7 @@ function ListaCards() {
                   <p>{data.description}</p>
                 </section>
                 <P className="date">{data.date}</P>
-                {data.type === "Despesa" ? (
+                {data.type === "Despesas" ? (
                   <P color="#D10707">R${data.value}</P>
                 ) : (
                   <P color="#053770">R${data.value}</P>
@@ -230,7 +230,7 @@ function ListaCards() {
                   >
                     <FaPen />
                   </BtnEditar>
-                  <BtnExcluir>
+                  <BtnExcluir onClick={() => deletaGasto(data.id)}>
                     <FaTrash />
                   </BtnExcluir>
                 </section>

@@ -4,24 +4,7 @@ import { RegistroGastosContext } from "../../Contexts/RegistroGastosContext";
 import { ResumoDiv, DespesasResumoTitulo } from "./style.module";
 
 function Resumo() {
-  const { gastos } = useContext(RegistroGastosContext);
-
-  const [receita, setReceita] = useState(0);
-  const [despesa, setDespesa] = useState(0);
-
-  useEffect(() => {
-    function resumoTotal() {
-      setReceita(0);
-      setDespesa(0);
-
-      gastos.map((gasto) => {
-        gasto.type === "Despesa"
-          ? setDespesa(despesa + gasto.value)
-          : setReceita(receita + gasto.value);
-      });
-    }
-    resumoTotal();
-  }, []);
+  let { receita, despesa } = useContext(RegistroGastosContext);
 
   return (
     <>
@@ -56,5 +39,4 @@ function Resumo() {
     </>
   );
 }
-
 export default Resumo;
