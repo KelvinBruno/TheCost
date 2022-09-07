@@ -1,19 +1,30 @@
+import React, { useContext } from 'react'
 import { useState } from "react";
-import { Container, DropDownMenu } from "./style.module";
 import { BsPersonCircle } from "react-icons/bs";
 import { BsBoxArrowLeft } from "react-icons/bs"
+import { Container, DropDownMenu } from "./style.module";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 
 const DropDown = () => {
+  const { user } = useContext(AuthContext);
+
   const [open, setOpen] = useState(false);
   const navigate = useNavigate()
+
+  const Logout = () => {
+    localStorage.clear()
+    navigate("/")
+  }
 
   return (
     <>
       <Container>
         <div className="menu" onClick={() => {setOpen(!open)}}>
-          <img src="data:image/jpeg;base64,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" alt="Foto de Perfil" />
+          <img 
+          src= {user?.image ? user.image : "./img-base.jpg"}
+          alt="Foto de Perfil" />
         </div>
       </Container>
 
@@ -22,11 +33,11 @@ const DropDown = () => {
             <ul className="drop-item">
                 <li>
                     <BsPersonCircle size={25} />
-                    <h3>Editar Perfil</h3>
+                    <h3 onClick={() => navigate("/perfil")}>Editar Perfil</h3>
                 </li>
                 <li>
                     <BsBoxArrowLeft size={25}/>
-                    <h3>Sair</h3>
+                    <h3 onClick={Logout}>Sair</h3>
                 </li>
             </ul>
         </div>
