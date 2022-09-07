@@ -5,7 +5,7 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import api from "../services/api";
+import { IGastos } from "./RegistroGastosContext";
 
 interface IOpenModalChildren {
   children: ReactNode;
@@ -16,52 +16,33 @@ interface IOpenModalContext {
   setOpenModalRegister: Dispatch<SetStateAction<boolean>>;
   OpenModalMeta: boolean;
   setOpenModalMeta: Dispatch<SetStateAction<boolean>>;
-  setOpenEditar: Dispatch<SetStateAction<boolean>>;
-  openEditar: boolean;
-  OnSubmitEditar: (dados: ISubmitEditar) => void;
-  setIdRegistro: Dispatch<SetStateAction<number>>;
-  idRegistro: number;
-  data: object;
-  setData: Dispatch<SetStateAction<object>>;
-  DadosDefault: () => void;
-}
-
-interface ISubmitEditar {
-  description?: string;
-  type?: string;
-  category?: string;
-  value?: string;
-  date?: string;
+  OpenModalEditMeta: boolean;
+  setOpenModalEditMeta: Dispatch<SetStateAction<boolean>>;
+  OpenModalEditRegister: boolean;
+  setOpenModalEditRegister: Dispatch<SetStateAction<boolean>>;
+  Data: IGastos;
+  setData: Dispatch<SetStateAction<IGastos>>;
+  Id: number;
+  setId: Dispatch<SetStateAction<number>>;
 }
 
 export const IsOpenModalContext = createContext({} as IOpenModalContext);
 
 export const IsOpenModalProvider = ({ children }: IOpenModalChildren) => {
   const [OpenModalRegister, setOpenModalRegister] = useState(false);
+  const [OpenModalEditRegister, setOpenModalEditRegister] = useState(false);
   const [OpenModalMeta, setOpenModalMeta] = useState(false);
-  const [openEditar, setOpenEditar] = useState(false);
-  const [idRegistro, setIdRegistro] = useState(0);
-  const [data, setData] = useState({});
-
-  function OnSubmitEditar(dados: ISubmitEditar) {
-    const newData = {
-      category: dados.category,
-      date: dados.date,
-      description: dados.description,
-      type: dados.type,
-      value: dados.value,
-    };
-    const token = localStorage.getItem("@the-cost:token");
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    api.patch(`data/${idRegistro}`, newData);
-  }
-  async function DadosDefault() {
-    const token = localStorage.getItem("@the-cost:token");
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    console.log(
-      await api.get(`https://thecost.herokuapp.com/data/${idRegistro}`)
-    );
-  }
+  const [OpenModalEditMeta, setOpenModalEditMeta] = useState(false);
+  const [Data, setData] = useState({
+    description: "",
+    type: "",
+    category: "",
+    value: 0,
+    date: "",
+    userId: 0,
+    id: 0,
+  });
+  const [Id, setId] = useState(0);
 
   return (
     <IsOpenModalContext.Provider
@@ -70,14 +51,14 @@ export const IsOpenModalProvider = ({ children }: IOpenModalChildren) => {
         setOpenModalRegister,
         OpenModalMeta,
         setOpenModalMeta,
-        openEditar,
-        setOpenEditar,
-        OnSubmitEditar,
-        setIdRegistro,
-        idRegistro,
-        data,
+        OpenModalEditRegister,
+        setOpenModalEditRegister,
+        OpenModalEditMeta,
+        setOpenModalEditMeta,
+        Data,
         setData,
-        DadosDefault,
+        Id,
+        setId,
       }}
     >
       {children}

@@ -8,16 +8,15 @@ import Money from "../../assets/Vector.svg";
 import { BtnEditar, BtnExcluir } from "../../styles/global";
 import { useContext } from "react";
 import { RegistroGastosContext } from "../../Contexts/RegistroGastosContext";
-import ModalEditarRegistro from "../ModalEditarRegistro";
+import { Vazio } from "../Dashboard/style.module";
 import { IsOpenModalContext } from "../../Contexts/ModalContext";
 function ListaCards() {
-  const { gastos } = useContext(RegistroGastosContext);
-
-  const { openEditar, setOpenEditar, setIdRegistro, DadosDefault } =
+  const { gastos: DataBase } = useContext(RegistroGastosContext);
+  const { setData, setId, setOpenModalEditRegister } =
     useContext(IsOpenModalContext);
-  return (
-    <>
-      {openEditar && <ModalEditarRegistro />}
+
+  if (DataBase.length !== 0) {
+    return (
       <Div>
         <Header>
           <p>Categoria</p>
@@ -27,9 +26,9 @@ function ListaCards() {
           <p>Opções</p>
         </Header>
         <Ul>
-          {gastos.map((data) =>
+          {DataBase.map((data) =>
             data.category === "Veículo" ? (
-              <li>
+              <li key={data.id}>
                 <section>
                   <section className="category">
                     <AiFillCar size={"1.2rem"} />
@@ -47,10 +46,11 @@ function ListaCards() {
                 )}
                 <section className="editar">
                   <BtnEditar
-                    onClick={() => {
-                      setIdRegistro(data.id);
-                      setOpenEditar(true);
-                    }}
+                    onClick={() => (
+                      setOpenModalEditRegister(true),
+                      setId(data.id),
+                      setData(data)
+                    )}
                   >
                     <FaPen />
                   </BtnEditar>
@@ -60,7 +60,7 @@ function ListaCards() {
                 </section>
               </li>
             ) : data.category === "Supermercado" ? (
-              <li>
+              <li key={data.id}>
                 <section>
                   <section className="category">
                     <AiOutlineShoppingCart size={"1.2rem"} />
@@ -77,11 +77,11 @@ function ListaCards() {
                 )}
                 <section className="editar">
                   <BtnEditar
-                    onClick={() => {
-                      setIdRegistro(data.id);
-                      DadosDefault();
-                      setOpenEditar(true);
-                    }}
+                    onClick={() => (
+                      setOpenModalEditRegister(true),
+                      setId(data.id),
+                      setData(data)
+                    )}
                   >
                     <FaPen />
                   </BtnEditar>
@@ -91,7 +91,7 @@ function ListaCards() {
                 </section>
               </li>
             ) : data.category === "Salário" ? (
-              <li>
+              <li key={data.id}>
                 <section>
                   <section className="category">
                     <img src={Money} alt="money" />
@@ -108,10 +108,11 @@ function ListaCards() {
                 )}
                 <section className="editar">
                   <BtnEditar
-                    onClick={() => {
-                      setIdRegistro(data.id);
-                      setOpenEditar(true);
-                    }}
+                    onClick={() => (
+                      setOpenModalEditRegister(true),
+                      setId(data.id),
+                      setData(data)
+                    )}
                   >
                     <FaPen />
                   </BtnEditar>
@@ -121,7 +122,7 @@ function ListaCards() {
                 </section>
               </li>
             ) : data.category === "Contas" ? (
-              <li>
+              <li key={data.id}>
                 <section>
                   <section className="category">
                     <img src={Faturas} alt="faturas" />
@@ -138,10 +139,11 @@ function ListaCards() {
                 )}
                 <section className="editar">
                   <BtnEditar
-                    onClick={() => {
-                      setIdRegistro(data.id);
-                      setOpenEditar(true);
-                    }}
+                    onClick={() => (
+                      setOpenModalEditRegister(true),
+                      setId(data.id),
+                      setData(data)
+                    )}
                   >
                     <FaPen />
                   </BtnEditar>
@@ -151,7 +153,7 @@ function ListaCards() {
                 </section>
               </li>
             ) : data.category === "Moda/Beleza" ? (
-              <li>
+              <li key={data.id}>
                 <section>
                   <section className="category">
                     <FaTshirt size={"1.2rem"} />
@@ -167,21 +169,12 @@ function ListaCards() {
                   <P color="#053770">R${data.value}</P>
                 )}
                 <section className="editar">
-                  <BtnEditar
-                    onClick={() => {
-                      setIdRegistro(data.id);
-                      setOpenEditar(true);
-                    }}
-                  >
-                    <FaPen />
-                  </BtnEditar>
-                  <BtnExcluir>
-                    <FaTrash />
-                  </BtnExcluir>
+                  <FaPen className="hoverRed" />
+                  <FaTrash className="hoverRed" />
                 </section>
               </li>
             ) : data.category === "Lazer" ? (
-              <li>
+              <li key={data.id}>
                 <section>
                   <section className="category">
                     <BsCameraReelsFill size={"1.2rem"} />
@@ -198,10 +191,11 @@ function ListaCards() {
                 )}
                 <section className="editar">
                   <BtnEditar
-                    onClick={() => {
-                      setIdRegistro(data.id);
-                      setOpenEditar(true);
-                    }}
+                    onClick={() => (
+                      setOpenModalEditRegister(true),
+                      setId(data.id),
+                      setData(data)
+                    )}
                   >
                     <FaPen />
                   </BtnEditar>
@@ -211,7 +205,7 @@ function ListaCards() {
                 </section>
               </li>
             ) : (
-              <li>
+              <li key={data.id}>
                 <section>
                   <section className="category">
                     <RiPlaneLine size={"1.2rem"} />
@@ -228,10 +222,11 @@ function ListaCards() {
                 )}
                 <section className="editar">
                   <BtnEditar
-                    onClick={() => {
-                      setIdRegistro(data.id);
-                      setOpenEditar(true);
-                    }}
+                    onClick={() => (
+                      setOpenModalEditRegister(true),
+                      setId(data.id),
+                      setData(data)
+                    )}
                   >
                     <FaPen />
                   </BtnEditar>
@@ -244,7 +239,17 @@ function ListaCards() {
           )}
         </Ul>
       </Div>
-    </>
-  );
+    );
+  } else {
+    return (
+      <Div>
+        <Vazio>
+          <img src="./ovni.svg" alt="ovni"></img>
+          <p>Nenhum registro foi encontrado...</p>
+        </Vazio>
+      </Div>
+    );
+  }
 }
+
 export default ListaCards;

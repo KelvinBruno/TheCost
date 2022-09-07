@@ -17,7 +17,7 @@ export interface IGastos {
   type: string;
   category: string;
   value: number;
-  date: Date;
+  date: string;
   userId: number;
   id: number;
 }
@@ -41,7 +41,6 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
 
     try {
       const data = await api.get("/data");
-      console.log(data);
       const { data: Gastos } = data;
 
       setGastos(Gastos);
