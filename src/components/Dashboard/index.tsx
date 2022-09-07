@@ -4,15 +4,20 @@ import logo from "../../assets/logo.png";
 import Metas from "../Metas";
 import { HeaderCards } from "../HeaderCards";
 import { useContext } from "react";
-import { IsOpenModalContext } from "../../contexts/ModalContext";
+import { IsOpenModalContext } from "../../Contexts/ModalContext";
 import { ModalRegistro } from "../ModalRegistro";
 import Resumo from "../Resumo";
 
 export function Dashboard() {
-  const { OpenModalRegister, setOpenModalRegister } =
-    useContext(IsOpenModalContext);
+  const {
+    OpenModalRegister,
+    setOpenModalRegister,
+    OpenModalEditRegister,
+    setOpenModalEditRegister,
+    Id,
+    Data,
+  } = useContext(IsOpenModalContext);
 
-  const num = false;
   return (
     <>
       {OpenModalRegister && (
@@ -21,6 +26,17 @@ export function Dashboard() {
           isOpen={OpenModalRegister}
         />
       )}
+
+      {OpenModalEditRegister && (
+        <ModalRegistro
+          funcaoFechar={() => setOpenModalEditRegister(!OpenModalEditRegister)}
+          id={Id}
+          data={Data}
+          isOpen={OpenModalEditRegister}
+          editar
+        />
+      )}
+
       <Header>
         <div className="centralize-logo">
           <img src={logo} alt="Logo The Cost"></img>
@@ -31,14 +47,7 @@ export function Dashboard() {
 
       <Container>
         <HeaderCards></HeaderCards>
-        {num ? (
-          <Vazio>
-            <img src="./ovni.svg" alt="ovni"></img>
-            <p>Nenhum registro foi encontrado...</p>
-          </Vazio>
-        ) : (
-          <ListaCards />
-        )}
+        <ListaCards />
         <Resumo />
         <Metas></Metas>
       </Container>
