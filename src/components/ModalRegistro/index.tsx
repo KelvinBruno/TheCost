@@ -18,6 +18,8 @@ import {
 } from "./style.module";
 import { useForm } from "react-hook-form";
 import { Dispatch, SetStateAction, useState } from "react";
+import api from "../../services/api";
+import { toast } from "react-toastify";
 
 interface IModal {
   id?: string;
@@ -56,6 +58,7 @@ export function ModalRegistro({ id, editar, funcaoFechar, isOpen }: IModal) {
       </option>
     </>
   );
+
   const [tipo, setTipo] = useState("");
 
   if (editar) {
@@ -77,7 +80,29 @@ export function ModalRegistro({ id, editar, funcaoFechar, isOpen }: IModal) {
     );
   }
 
-  function fechaModal() {
+  const addRegistro = async (data: FormValues) => {
+    await api
+      .post("/data", data)
+      .then((response) => toast.success("Registro criado com sucesso"))
+      .catch((error) => toast.error("Ops! Algo deu errado!"));
+  };
+
+  const editarRegistro = async (data: FormValues) => {
+    await api
+      .patch("/data", data)
+      .then((response) => toast.success("Registro editado com sucesso"))
+      .catch((error) => toast.error("Ops! Algo deu errado!"));
+  };
+
+  function submitData(data: FormValues) {
+    if (editar) {
+      editarRegistro(data);
+    } else {
+      addRegistro(data);
+    }
+  }
+
+  function fecharModal() {
     funcaoFechar(!isOpen);
   }
 
@@ -86,11 +111,11 @@ export function ModalRegistro({ id, editar, funcaoFechar, isOpen }: IModal) {
       <ComponenteModal>
         <DivTitle>
           <Title>{tituloModal}</Title>
-          <BotaoFechar onClick={() => fechaModal()}>
+          <BotaoFechar onClick={() => fecharModal()}>
             <MdClear />
           </BotaoFechar>
         </DivTitle>
-        <FormModal onSubmit={onSubmit}>
+        <FormModal onSubmit={handleSubmit(submitData)}>
           <InputsGroup>
             <LabelModal htmlFor="descricao">Descrição</LabelModal>
             <Input
@@ -144,7 +169,7 @@ export function ModalRegistro({ id, editar, funcaoFechar, isOpen }: IModal) {
               />
             </ContainerInputGroup>
           </InputsGroup>
-          <BtnSalvar>Salvar</BtnSalvar>
+          <BtnSalvar type="submit">Salvar</BtnSalvar>
         </FormModal>
       </ComponenteModal>
     </Modal>

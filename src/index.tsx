@@ -5,10 +5,10 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "./contexts/AuthContext";
-import { MetaProvider } from "./contexts/MetasContext";
-import { RegistroGastosProvider } from "./contexts/RegistroGastosContext";
-import { IsOpenModalProvider } from "./contexts/ModalContext";
+import { AuthProvider } from "./Contexts/AuthContext";
+import { MetaProvider } from "./Contexts/MetasContext";
+import { RegistroGastosProvider } from "./Contexts/RegistroGastosContext";
+import { IsOpenModalProvider } from "./Contexts/ModalContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
