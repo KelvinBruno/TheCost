@@ -15,10 +15,13 @@ import {
   Title,
 } from "./style.module";
 import { useForm } from "react-hook-form";
+import { Dispatch, SetStateAction } from "react";
 
 interface IModal {
   id?: string;
   editar?: boolean;
+  funcaoFechar: Dispatch<SetStateAction<boolean>>;
+  isOpen: boolean;
 }
 
 interface FormValues {
@@ -26,7 +29,7 @@ interface FormValues {
   value: string | number;
 }
 
-export function ModalMeta({ id, editar }: IModal) {
+export function ModalMeta({ id, editar, funcaoFechar, isOpen }: IModal) {
   const {
     register,
     handleSubmit,
@@ -52,7 +55,9 @@ export function ModalMeta({ id, editar }: IModal) {
     tituloModal = "Criar Meta";
   }
 
-  function fechaModal() {}
+  function fechaModal() {
+    funcaoFechar(!isOpen);
+  }
 
   return (
     <Modal>

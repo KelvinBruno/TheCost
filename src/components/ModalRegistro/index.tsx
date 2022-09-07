@@ -17,14 +17,15 @@ import {
   Title,
 } from "./style.module";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import api from "../../services/api";
-import { toast } from 'react-toastify';
-
+import { toast } from "react-toastify";
 
 interface IModal {
   id?: string;
   editar?: boolean;
+  funcaoFechar: Dispatch<SetStateAction<boolean>>;
+  isOpen: boolean;
 }
 
 interface FormValues {
@@ -35,9 +36,12 @@ interface FormValues {
   value: number | string;
 }
 
-export function ModalRegistro({ id, editar }: IModal) {
-  const {register, handleSubmit, formState: { errors },} = useForm<FormValues>();
-  
+export function ModalRegistro({ id, editar, funcaoFechar, isOpen }: IModal) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
   const onSubmit = handleSubmit((data) => {
     let { value } = data;
     console.log(data.value);
@@ -53,21 +57,9 @@ export function ModalRegistro({ id, editar }: IModal) {
         Outros rendimentos
       </option>
     </>
-  )
+  );
 
   const [tipo, setTipo] = useState("");
-  // const optionsTipo = [
-  //   { value: `Despesa`, label: `Despesa` },
-  //   { value: `Receita`, label: `Receita` },
-  // ];
-
-  // const optionsReceitas = [
-  //   { value: `Salário`, label: `Salário` },
-  //   {
-  //     value: `Outros Rendimentos`,
-  //     label: `Outros Rendimentos`,
-  //   },
-  // ];
 
   if (editar) {
     tituloModal = "Editar Registro";
@@ -85,27 +77,33 @@ export function ModalRegistro({ id, editar }: IModal) {
           Veículos
         </option>
       </>
-    )
+    );
   }
 
   const addRegistro = async (data: FormValues) => {
-    await api.post("/data", data)
-    .then((response) => toast.success("Registro criado com sucesso"))
-    .catch((error) => toast.error("Ops! Algo deu errado!"))
-  }
+    await api
+      .post("/data", data)
+      .then((response) => toast.success("Registro criado com sucesso"))
+      .catch((error) => toast.error("Ops! Algo deu errado!"));
+  };
 
   const editarRegistro = async (data: FormValues) => {
-    await api.patch("/data", data)
-    .then((response) => toast.success("Registro editado com sucesso"))
-    .catch((error) => toast.error("Ops! Algo deu errado!"))
+    await api
+      .patch("/data", data)
+      .then((response) => toast.success("Registro editado com sucesso"))
+      .catch((error) => toast.error("Ops! Algo deu errado!"));
+  };
+
+  function submitData(data: FormValues) {
+    if (editar) {
+      editarRegistro(data);
+    } else {
+      addRegistro(data);
+    }
   }
 
-  function submitData(data: FormValues){
-    if (editar) {
-      editarRegistro(data)
-    } else {
-      addRegistro(data)
-    }
+  function fecharModal() {
+    funcaoFechar(!isOpen);
   }
 
   return (
@@ -113,7 +111,7 @@ export function ModalRegistro({ id, editar }: IModal) {
       <ComponenteModal>
         <DivTitle>
           <Title>{tituloModal}</Title>
-          <BotaoFechar>
+          <BotaoFechar onClick={() => fecharModal()}>
             <MdClear />
           </BotaoFechar>
         </DivTitle>

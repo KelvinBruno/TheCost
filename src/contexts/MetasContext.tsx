@@ -6,8 +6,10 @@ import {
   createContext,
   Dispatch,
   SetStateAction,
+  useCallback,
 } from "react";
 import { useNavigate } from "react-router-dom";
+import Metas from "../components/Metas";
 import api from "../services/api";
 import { AuthContext } from "./AuthContext";
 
@@ -35,9 +37,9 @@ export function MetaProvider({ children }: IMetaChildren) {
   const [metas, setMetas] = useState([]);
   const navigate = useNavigate();
   const { setLoading } = useContext(AuthContext);
+  const token = localStorage.getItem("@the-cost:token");
 
   async function carregaMeta() {
-    const token = localStorage.getItem("@the-cost:token");
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     if (token) {
@@ -47,7 +49,7 @@ export function MetaProvider({ children }: IMetaChildren) {
 
         setMetas(Metas);
       } catch (error) {
-        console.error(error);
+        console.error("erro carrega metas", error);
       } finally {
         setLoading(false);
       }
@@ -58,7 +60,7 @@ export function MetaProvider({ children }: IMetaChildren) {
 
   useEffect(() => {
     carregaMeta();
-  }, []);
+  }, [metas]);
 
   return (
     <MetaContext.Provider value={{ carregaMeta, metas, setMetas }}>

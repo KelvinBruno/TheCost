@@ -17,7 +17,7 @@ export interface IGastos {
   type: string;
   category: string;
   value: number;
-  date: Date;
+  date: string;
   userId: number;
   id: number;
 }
