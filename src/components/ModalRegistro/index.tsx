@@ -17,35 +17,57 @@ import {
   Title,
 } from "./style.module";
 import { useForm } from "react-hook-form";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import api from "../../services/api";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../Contexts/AuthContext";
+import { IGastos } from "../../Contexts/RegistroGastosContext";
 
 interface IModal {
-  id?: string;
+  id?: number;
   editar?: boolean;
   funcaoFechar: Dispatch<SetStateAction<boolean>>;
   isOpen: boolean;
+  data?: IGastos;
 }
 
 interface FormValues {
   description: string;
   type: string;
   category: string;
-  date: Date;
+  date: Date | string;
   value: number | string;
+  userId: number | null;
+  id?: number;
 }
 
-export function ModalRegistro({ id, editar, funcaoFechar, isOpen }: IModal) {
+export function ModalRegistro({
+  id,
+  editar,
+  funcaoFechar,
+  isOpen,
+  data,
+}: IModal) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
-  const onSubmit = handleSubmit((data) => {
-    let { value } = data;
-    console.log(data.value);
+  } = useForm<FormValues>({
+    defaultValues: {
+      description: data?.description,
+      category: data?.category,
+      date: data?.date,
+      type: data?.type,
+    },
   });
+
+  const { user } = useContext(AuthContext);
+
+  let idUser: null | number = null;
+
+  if (user?.id) {
+    idUser = user.id;
+  }
 
   let tituloModal = "";
   let optionTipo = (
@@ -70,31 +92,56 @@ export function ModalRegistro({ id, editar, funcaoFechar, isOpen }: IModal) {
   if (tipo === "Despesas") {
     optionTipo = (
       <>
-        <option value="Supermercado" id="Supermercado">
+        <option value="Supermercado" id="supermercado">
           Supermercado
         </option>
-        <option value="Veículos" id="Veículos">
-          Veículos
+        <option value="Veículo" id="veiculo">
+          Veículo
+        </option>
+        <option value="Contas" id="contas">
+          Contas
+        </option>
+        <option value="Moda/Beleza" id="moda-beleza">
+          Moda/Beleza
+        </option>
+        <option value="Lazer" id="lazer">
+          Lazer
+        </option>
+        <option value="Viagem" id="viagem">
+          Viagem
         </option>
       </>
     );
   }
 
   const addRegistro = async (data: FormValues) => {
+    if (data.type === "Despesas" && data.category === "Salário") {
+      data.category = "Supermercado";
+    }
+    data.userId = idUser;
     await api
       .post("/data", data)
-      .then((response) => toast.success("Registro criado com sucesso"))
+      .then((response) => {
+        toast.success("Registro criado com sucesso");
+        funcaoFechar(false);
+      })
       .catch((error) => toast.error("Ops! Algo deu errado!"));
   };
 
   const editarRegistro = async (data: FormValues) => {
+    if (data.type === "Despesas" && data.category === "Salário") {
+      data.category = "Supermercado";
+    }
+    data.userId = idUser;
     await api
-      .patch("/data", data)
+      .patch(`/data/${id}`, data)
       .then((response) => toast.success("Registro editado com sucesso"))
       .catch((error) => toast.error("Ops! Algo deu errado!"));
   };
 
   function submitData(data: FormValues) {
+    data.userId = idUser;
+    console.log(data);
     if (editar) {
       editarRegistro(data);
     } else {
@@ -128,7 +175,11 @@ export function ModalRegistro({ id, editar, funcaoFechar, isOpen }: IModal) {
           <InputsGroup>
             <ContainerInputGroup>
               <LabelModal htmlFor="tipo">Tipo</LabelModal>
-              <Select id="tipo" onChange={(e) => setTipo(e.target.value)}>
+              <Select
+                id="tipo"
+                {...register("type")}
+                onChange={(e) => setTipo(e.target.value)}
+              >
                 <option value="Receitas" id="Receitas">
                   Receitas
                 </option>
@@ -139,34 +190,68 @@ export function ModalRegistro({ id, editar, funcaoFechar, isOpen }: IModal) {
             </ContainerInputGroup>
             <ContainerInputGroup>
               <LabelModal htmlFor="categoria">Categoria</LabelModal>
-              <Select id="categoria">{optionTipo}</Select>
+              <Select {...register("category")} id="categoria">
+                {optionTipo}
+              </Select>
             </ContainerInputGroup>
           </InputsGroup>
           <InputsGroup>
             <ContainerInputGroup>
               <LabelModal htmlFor="data">Data</LabelModal>
-              <InputData type="date" id="data" {...register("date")} />
-            </ContainerInputGroup>
-            <ContainerInputGroup id="div-valor">
-              <LabelModal htmlFor="valor">Valor</LabelModal>
-              <CurrencyInput
-                id="valor"
-                placeholder="R$"
-                decimalsLimit={2}
-                maxLength={18}
-                disableAbbreviations
-                defaultValue={0}
-                intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-                {...register("value", {
+              <InputData
+                type="date"
+                id="data"
+                {...register("date", {
                   setValueAs: (value) => {
-                    value = value.slice(3);
-                    value = value.replaceAll(".", "");
-                    value = value.replace(",", ".");
-                    value = parseFloat(value);
+                    value = value.split("-").reverse().join("/");
                     return value;
                   },
                 })}
               />
+            </ContainerInputGroup>
+            <ContainerInputGroup id="div-valor">
+              <LabelModal htmlFor="valor">Valor</LabelModal>
+              {editar ? (
+                <CurrencyInput
+                  id="valor"
+                  prefix="R$"
+                  placeholder="R$"
+                  decimalsLimit={2}
+                  maxLength={18}
+                  disableAbbreviations
+                  defaultValue={data?.value}
+                  intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+                  {...register("value", {
+                    setValueAs: (value) => {
+                      value = value.slice(3);
+                      value = value.replaceAll(".", "");
+                      value = value.replace(",", ".");
+                      value = parseFloat(value);
+                      return value;
+                    },
+                  })}
+                />
+              ) : (
+                <CurrencyInput
+                  id="valor"
+                  prefix="R$"
+                  placeholder="R$"
+                  decimalsLimit={2}
+                  maxLength={18}
+                  disableAbbreviations
+                  defaultValue={0}
+                  intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+                  {...register("value", {
+                    setValueAs: (value) => {
+                      value = value.slice(3);
+                      value = value.replaceAll(".", "");
+                      value = value.replace(",", ".");
+                      value = parseFloat(value);
+                      return value;
+                    },
+                  })}
+                />
+              )}
             </ContainerInputGroup>
           </InputsGroup>
           <BtnSalvar type="submit">Salvar</BtnSalvar>
