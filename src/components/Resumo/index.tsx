@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { RegistroGastosContext } from "../../Contexts/RegistroGastosContext";
+import { RegistroGastosContext } from "../../contexts/RegistroGastosContext";
 
 import { ResumoDiv, DespesasResumoTitulo } from "./style.module";
-import { IGastos } from "../../Contexts/RegistroGastosContext";
+import { IGastos } from "../../contexts/RegistroGastosContext";
 
 interface IReceitasProps {
   acc: number;
@@ -53,7 +53,7 @@ function Resumo() {
         </div>
         <span>Recursos disponiveís</span>
         <span>
-          {(receita - despesa ).toLocaleString("pt-BR", {
+          {(receita - despesa).toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL",
           })}

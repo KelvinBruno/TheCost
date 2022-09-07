@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MetaContext } from "../../Contexts/MetasContext";
+import { MetaContext } from "../../contexts/MetasContext";
 import { BtnRegistroMeta, Meta } from "./style.module";
 
 function Metas() {
