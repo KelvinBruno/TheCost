@@ -17,6 +17,7 @@ import { BtnCadastrar } from "../../styles/global";
 import api from "../../services/api";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { IRegistro } from "../../Contexts/AuthRegistro";
+import { toast } from "react-toastify";
 
 interface IEditar {
   nome: string;
@@ -45,12 +46,9 @@ const Perfil = () => {
     await api
       .patch(`/users/${user?.id}`, data)
       .then((response) => {
-        console.log(data);
-        console.log(response);
+        toast.success("Perfil editado com sucesso.");
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {toast.error("ops, ocorreu um erro.")});
   };
 
   const schema = yup.object({
