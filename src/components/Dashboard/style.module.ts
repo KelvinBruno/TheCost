@@ -65,6 +65,8 @@ export const Container = styled.div`
 
   background-color: var(--blue-0);
   @media (min-width: 1024px) {
+    display: flex;
+    align-items: flex-start;
     height: 77vh;
     flex-direction: row;
     justify-content: space-around;
