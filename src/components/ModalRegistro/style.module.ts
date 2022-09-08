@@ -125,5 +125,31 @@ export const ContainerInputGroup = styled.div`
   @media (min-width: 445px) {
     margin-top: 10px;
     min-width: 50%;
+    .errorTipo {
+      text-align: left;
+    }
+
+    .errorDate {
+      text-align: left;
+    }
+  }
+
+  p {
+    justify-self: center;
+  }
+`;
+
+export const ErrorMessageModalRegistro = styled.p`
+  display: block;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 0px;
+  font-size: 20px;
+  color: #fbfbfb;
+  font-weight: 500;
+  @media (min-width: 445px) {
+    text-align: left;
   }
 `;

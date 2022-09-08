@@ -1,5 +1,6 @@
 import CurrencyInput from "react-currency-input-field";
 import { MdClear } from "react-icons/md";
+import * as yup from "yup";
 import { BtnSalvar, Input } from "../../styles/global";
 import { yupResolver } from "@hookform/resolvers/yup";
 import "./styles.css";
@@ -15,6 +16,7 @@ import {
   Modal,
   Select,
   Title,
+  ErrorMessageModalRegistro,
 } from "./style.module";
 import { useForm } from "react-hook-form";
 import { Dispatch, SetStateAction, useContext, useState } from "react";
@@ -49,11 +51,23 @@ export function ModalRegistro({ editar, funcaoFechar, isOpen }: IModal) {
   const { user } = useContext(AuthContext);
   const { carregaGastos } = useContext(RegistroGastosContext);
   const { Data, Id } = useContext(IsOpenModalContext);
+
+  const schema = yup.object({
+    description: yup.string().required("A descrição é obrigatória"),
+    category: yup.string().required("A categoria é obrigatória"),
+    date: yup.string().required("A data é obrigatória"),
+    type: yup.string().required("O tipo é obrigatório"),
+    value: yup
+      .number()
+      .min(1, "O valor não pode ser 0")
+      .required("O valor do registro é obrigatório"),
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
+    resolver: yupResolver(schema),
     defaultValues: {
       description: Data?.description,
       category: Data?.category,
@@ -177,6 +191,11 @@ export function ModalRegistro({ editar, funcaoFechar, isOpen }: IModal) {
               placeholder="Insira a descrição do gasto"
               {...register("description")}
             />
+            {errors.description && (
+              <ErrorMessageModalRegistro>
+                {errors.description.message}
+              </ErrorMessageModalRegistro>
+            )}
           </InputsGroup>
           <InputsGroup>
             <ContainerInputGroup>
@@ -193,12 +212,22 @@ export function ModalRegistro({ editar, funcaoFechar, isOpen }: IModal) {
                   Despesas
                 </option>
               </Select>
+              {errors.type && (
+                <ErrorMessageModalRegistro className="errorTipo">
+                  {errors.type.message}
+                </ErrorMessageModalRegistro>
+              )}
             </ContainerInputGroup>
             <ContainerInputGroup>
               <LabelModal htmlFor="categoria">Categoria</LabelModal>
               <Select {...register("category")} id="categoria">
                 {optionTipo}
               </Select>
+              {errors.category && (
+                <ErrorMessageModalRegistro>
+                  {errors.category.message}
+                </ErrorMessageModalRegistro>
+              )}
             </ContainerInputGroup>
           </InputsGroup>
           <InputsGroup>
@@ -214,6 +243,11 @@ export function ModalRegistro({ editar, funcaoFechar, isOpen }: IModal) {
                   },
                 })}
               />
+              {errors.date && (
+                <ErrorMessageModalRegistro className="errorTipo">
+                  {errors.date.message}
+                </ErrorMessageModalRegistro>
+              )}
             </ContainerInputGroup>
             <ContainerInputGroup id="div-valor">
               <LabelModal htmlFor="valor">Valor</LabelModal>
@@ -257,6 +291,11 @@ export function ModalRegistro({ editar, funcaoFechar, isOpen }: IModal) {
                     },
                   })}
                 />
+              )}
+              {errors.value && (
+                <ErrorMessageModalRegistro>
+                  {errors.value.message}
+                </ErrorMessageModalRegistro>
               )}
             </ContainerInputGroup>
           </InputsGroup>
