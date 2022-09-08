@@ -18,6 +18,8 @@ import { useForm } from "react-hook-form";
 import { Dispatch, SetStateAction, useContext, useState } from "react";
 import api from "../../services/api";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../Contexts/AuthContext";
+import { MetaContext } from "../../Contexts/MetasContext";
 
 interface IModal {
   id?: number;
@@ -31,6 +33,8 @@ interface metaValues {
   objetivo: string;
   value: number | string;
   done: number | string | undefined;
+  userId?: number;
+  id?: number;
 }
 
 export function ModalMeta({ editar, funcaoFechar, isOpen, meta }: IModal) {
@@ -38,17 +42,21 @@ export function ModalMeta({ editar, funcaoFechar, isOpen, meta }: IModal) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<metaValues>({defaultValues: {
-    objetivo: meta?.objetivo,
-    done: meta?.done,
-    value: meta?.value,
-  }});
+  } = useForm<metaValues>({
+    defaultValues: {
+      objetivo: meta?.objetivo,
+      done: `R$ ${meta?.done}`,
+      value: `R$ ${meta?.value}`,
+    },
+  });
+  const { user } = useContext(AuthContext);
+  const { carregaMeta } = useContext(MetaContext);
 
   const onSubmit = handleSubmit((data) => {
     let { value } = data;
     console.log(data.value);
   });
-
+  let funcaoEditar;
   let tituloModal = "";
   let botoes = <BtnSalvar>Salvar</BtnSalvar>;
 
@@ -56,8 +64,17 @@ export function ModalMeta({ editar, funcaoFechar, isOpen, meta }: IModal) {
     tituloModal = "Editar Meta";
     botoes = (
       <>
-        <BtnSalvar>Salvar</BtnSalvar>
-        <BtnApagar>Excluir</BtnApagar>
+        <BtnSalvar onClick={funcaoEditar}>Salvar</BtnSalvar>
+        <BtnApagar
+          onClick={(e) => {
+            e.preventDefault();
+            deletarMeta();
+            carregaMeta();
+            funcaoFechar(!isOpen);
+          }}
+        >
+          Excluir
+        </BtnApagar>
       </>
     );
   } else {
@@ -69,30 +86,41 @@ export function ModalMeta({ editar, funcaoFechar, isOpen, meta }: IModal) {
   }
 
   const addMeta = async (data: metaValues) => {
+    data.userId = user?.id;
     await api
       .post("/metas", data)
-      .then((response) => toast.success("Meta criada com sucesso"))
+      .then((response) => {
+        carregaMeta();
+        toast.success("Meta criada com sucesso");
+        funcaoFechar(!isOpen);
+      })
       .catch((error) => toast.error("Ops! Algo deu errado!"));
   };
 
   const editarMeta = async (data: metaValues) => {
     await api
-      .patch("/metas", data)
-      .then((response) => toast.success("Meta editada com sucesso"))
+      .patch(`/metas/${meta?.id}`, data)
+      .then((response) => {
+        toast.success("Meta editada com sucesso");
+        funcaoFechar(!isOpen);
+      })
       .catch((error) => toast.error("Ops! Algo deu errado!"));
   };
 
   const deletarMeta = async () => {
+    funcaoFechar(!isOpen);
     await api
-      .delete("/metas")
-      .then((response) => toast.success("Meta deletada com sucesso"))
+      .delete(`/metas/${meta?.id}`)
+      .then((response) => {
+        toast.success("Meta deletada com sucesso");
+        carregaMeta();
+      })
       .catch((error) => toast.error("Ops! Algo deu errado!"));
   };
 
   function submitData(data: metaValues) {
     if (editar) {
-      editarMeta(data);
-      deletarMeta();
+      funcaoEditar = editarMeta(data);
     } else {
       addMeta(data);
     }
@@ -128,11 +156,14 @@ export function ModalMeta({ editar, funcaoFechar, isOpen, meta }: IModal) {
                 disableAbbreviations
                 defaultValue={meta?.value}
                 intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-                  {...register("value", {
-                    setValueAs: (value) => {
-                      value = value.slice(3)
-                      return value
-                    }
+                {...register("value", {
+                  setValueAs: (value) => {
+                    value = value.slice(3);
+                    value = value.replaceAll(".", "");
+                    value = value.replace(",", ".");
+                    value = parseFloat(value);
+                    return value;
+                  },
                 })}
               />
             ) : (
@@ -144,11 +175,14 @@ export function ModalMeta({ editar, funcaoFechar, isOpen, meta }: IModal) {
                 disableAbbreviations
                 defaultValue={0}
                 intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-                  {...register("value", {
-                    setValueAs: (value) => {
-                      value = value.slice(3)
-                      return value
-                    },
+                {...register("value", {
+                  setValueAs: (value) => {
+                    value = value.slice(3);
+                    value = value.replaceAll(".", "");
+                    value = value.replace(",", ".");
+                    value = parseFloat(value);
+                    return value;
+                  },
                 })}
               />
             )}
@@ -164,11 +198,14 @@ export function ModalMeta({ editar, funcaoFechar, isOpen, meta }: IModal) {
                 disableAbbreviations
                 defaultValue={meta?.done}
                 intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-                  {...register("done", {
-                    setValueAs: (done) => {
-                      done = done.slice(3)
-                      return done
-                    },
+                {...register("done", {
+                  setValueAs: (done) => {
+                    done = done.slice(3);
+                    done = done.replaceAll(".", "");
+                    done = done.replace(",", ".");
+                    done = parseFloat(done);
+                    return done;
+                  },
                 })}
               />
             ) : (
@@ -180,11 +217,14 @@ export function ModalMeta({ editar, funcaoFechar, isOpen, meta }: IModal) {
                 disableAbbreviations
                 defaultValue={0}
                 intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-                  {...register("done", {
-                    setValueAs: (done) => {
-                      done = done.slice(3)
-                      return done
-                    },
+                {...register("done", {
+                  setValueAs: (done) => {
+                    done = done.slice(3);
+                    done = done.replaceAll(".", "");
+                    done = done.replace(",", ".");
+                    done = parseFloat(done);
+                    return done;
+                  },
                 })}
               />
             )}
