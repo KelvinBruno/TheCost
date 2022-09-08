@@ -21,7 +21,11 @@ import { Dispatch, SetStateAction, useContext, useState } from "react";
 import api from "../../services/api";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Contexts/AuthContext";
-import { IGastos } from "../../Contexts/RegistroGastosContext";
+import {
+  IGastos,
+  RegistroGastosContext,
+} from "../../Contexts/RegistroGastosContext";
+import { IsOpenModalContext } from "../../Contexts/ModalContext";
 
 interface IModal {
   id?: number;
@@ -41,27 +45,22 @@ interface FormValues {
   id?: number;
 }
 
-export function ModalRegistro({
-  id,
-  editar,
-  funcaoFechar,
-  isOpen,
-  data,
-}: IModal) {
+export function ModalRegistro({ editar, funcaoFechar, isOpen }: IModal) {
+  const { user } = useContext(AuthContext);
+  const { carregaGastos } = useContext(RegistroGastosContext);
+  const { Data, Id } = useContext(IsOpenModalContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      description: data?.description,
-      category: data?.category,
-      date: data?.date,
-      type: data?.type,
+      description: Data?.description,
+      category: Data?.category,
+      date: Data?.date,
+      type: Data?.type,
     },
   });
-
-  const { user } = useContext(AuthContext);
 
   let idUser: null | number = null;
 
@@ -123,6 +122,8 @@ export function ModalRegistro({
       .post("/data", data)
       .then((response) => {
         toast.success("Registro criado com sucesso");
+        carregaGastos();
+
         funcaoFechar(false);
       })
       .catch((error) => toast.error("Ops! Algo deu errado!"));
@@ -134,14 +135,19 @@ export function ModalRegistro({
     }
     data.userId = idUser;
     await api
-      .patch(`/data/${id}`, data)
-      .then((response) => toast.success("Registro editado com sucesso"))
+      .patch(`/data/${Id}`, data)
+      .then((response) => {
+        toast.success("Registro editado com sucesso");
+        console.log(Data);
+        carregaGastos();
+
+        funcaoFechar(false);
+      })
       .catch((error) => toast.error("Ops! Algo deu errado!"));
   };
 
   function submitData(data: FormValues) {
     data.userId = idUser;
-    console.log(data);
     if (editar) {
       editarRegistro(data);
     } else {
@@ -219,7 +225,7 @@ export function ModalRegistro({
                   decimalsLimit={2}
                   maxLength={18}
                   disableAbbreviations
-                  defaultValue={data?.value}
+                  defaultValue={Data?.value}
                   intlConfig={{ locale: "pt-BR", currency: "BRL" }}
                   {...register("value", {
                     setValueAs: (value) => {
