@@ -11,6 +11,7 @@ export const Modal = styled.div`
   align-items: center;
   margin-left: 2%;
   margin-right: 2%;
+  z-index: 1;
   @media (min-width: 590px) {
     width: 100%;
     backdrop-filter: blur(3px);
