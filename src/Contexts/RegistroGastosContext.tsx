@@ -51,7 +51,7 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
       const data = await api.get("/data");
       const { data: Gastos } = data;
       setGastos(Gastos);
-      if (gastos.length !== 0) {
+      if (Gastos.length !== 0) {
         console.log("calculou gastos");
         let arrayDespesas = Gastos.filter(
           (gasto: IGastos) => gasto.type === "Despesas"
@@ -96,7 +96,7 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
     console.log("gastos");
     console.log(temGastos);
     carregaGastos();
-  }, [gastos]);
+  }, []);
 
   return (
     <RegistroGastosContext.Provider
