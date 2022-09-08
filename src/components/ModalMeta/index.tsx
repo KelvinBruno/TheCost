@@ -15,7 +15,7 @@ import {
   Title,
 } from "./style.module";
 import { useForm } from "react-hook-form";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import api from "../../services/api";
 import { toast } from "react-toastify";
 
@@ -31,7 +31,7 @@ interface metaValues {
   value: string | number;
 }
 
-export function ModalMeta({ id, editar, funcaoFechar, isOpen }: IModal) {
+export function ModalMeta({ editar, funcaoFechar, isOpen }: IModal) {
   const {
     register,
     handleSubmit,
@@ -62,27 +62,30 @@ export function ModalMeta({ id, editar, funcaoFechar, isOpen }: IModal) {
   }
 
   const addMeta = async (data: metaValues) => {
-    await api.post("/metas", data)
+    await api
+      .post("/metas", data)
       .then((response) => toast.success("Meta criada com sucesso"))
       .catch((error) => toast.error("Ops! Algo deu errado!"));
   };
 
   const editarMeta = async (data: metaValues) => {
-    await api.patch("/metas", data)
+    await api
+      .patch("/metas", data)
       .then((response) => toast.success("Meta editada com sucesso"))
       .catch((error) => toast.error("Ops! Algo deu errado!"));
   };
 
   const deletarMeta = async () => {
-    await api.delete("/metas")
-    .then((response) => toast.success("Meta deletada com sucesso"))
-    .catch((error) => toast.error("Ops! Algo deu errado!"));
-  }
+    await api
+      .delete("/metas")
+      .then((response) => toast.success("Meta deletada com sucesso"))
+      .catch((error) => toast.error("Ops! Algo deu errado!"));
+  };
 
   function submitData(data: metaValues) {
     if (editar) {
       editarMeta(data);
-      deletarMeta()
+      deletarMeta();
     } else {
       addMeta(data);
     }

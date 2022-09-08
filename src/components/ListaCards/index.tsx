@@ -6,7 +6,7 @@ import { FaTshirt, FaTrash, FaPen } from "react-icons/fa";
 import Faturas from "../../assets/Faturas.svg";
 import Money from "../../assets/Vector.svg";
 import { BtnEditar, BtnExcluir } from "../../styles/global";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { RegistroGastosContext } from "../../Contexts/RegistroGastosContext";
 import { Vazio } from "../Dashboard/style.module";
 import { IsOpenModalContext } from "../../Contexts/ModalContext";
@@ -26,211 +26,211 @@ function ListaCards() {
           <p>Opções</p>
         </Header>
         <Ul>
-          {gastos.map((data) =>
-            data.category === "Veículo" ? (
-              <li key={data.id}>
+          {gastos.map((Data) =>
+            Data.category === "Veículo" ? (
+              <li key={Data.id}>
                 <section>
                   <section className="category">
                     <AiFillCar size={"1.2rem"} />
-                    <P>{data.category}</P>
+                    <P>{Data.category}</P>
                   </section>
 
-                  <p>{data.description}</p>
+                  <p>{Data.description}</p>
                 </section>
-                <P className="date">{data.date}</P>
+                <P className="date">{Data.date}</P>
 
-                {data.type === "Despesas" ? (
-                  <P color="#D10707">R${data.value}</P>
+                {Data.type === "Despesas" ? (
+                  <P color="#D10707">R${Data.value}</P>
                 ) : (
-                  <P color="#053770">R${data.value}</P>
+                  <P color="#053770">R${Data.value}</P>
                 )}
                 <section className="editar">
                   <BtnEditar
                     onClick={() => (
                       setOpenModalEditRegister(true),
-                      setId(data.id),
-                      setData(data)
+                      setId(Data.id),
+                      setData(Data)
                     )}
                   >
                     <FaPen />
                   </BtnEditar>
-                  <BtnExcluir onClick={() => deletaGasto(data.id)}>
+                  <BtnExcluir onClick={() => deletaGasto(Data.id)}>
                     <FaTrash />
                   </BtnExcluir>
                 </section>
               </li>
-            ) : data.category === "Supermercado" ? (
-              <li key={data.id}>
+            ) : Data.category === "Supermercado" ? (
+              <li key={Data.id}>
                 <section>
                   <section className="category">
                     <AiOutlineShoppingCart size={"1.2rem"} />
-                    <P>{data.category}</P>
+                    <P>{Data.category}</P>
                   </section>
 
-                  <p>{data.description}</p>
+                  <p>{Data.description}</p>
                 </section>
-                <P className="date">{data.date}</P>
-                {data.type === "Despesas" ? (
-                  <P color="#D10707">R${data.value}</P>
+                <P className="date">{Data.date}</P>
+                {Data.type === "Despesas" ? (
+                  <P color="#D10707">R${Data.value}</P>
                 ) : (
-                  <P color="#053770">R${data.value}</P>
+                  <P color="#053770">R${Data.value}</P>
                 )}
                 <section className="editar">
                   <BtnEditar
                     onClick={() => (
                       setOpenModalEditRegister(true),
-                      setId(data.id),
-                      setData(data)
+                      setId(Data.id),
+                      setData(Data)
                     )}
                   >
                     <FaPen />
                   </BtnEditar>
-                  <BtnExcluir onClick={() => deletaGasto(data.id)}>
+                  <BtnExcluir onClick={() => deletaGasto(Data.id)}>
                     <FaTrash />
                   </BtnExcluir>
                 </section>
               </li>
-            ) : data.category === "Salário" ? (
-              <li key={data.id}>
+            ) : Data.category === "Salário" ? (
+              <li key={Data.id}>
                 <section>
                   <section className="category">
                     <img src={Money} alt="money" />
-                    <P>{data.category}</P>
+                    <P>{Data.category}</P>
                   </section>
 
-                  <p>{data.description}</p>
+                  <p>{Data.description}</p>
                 </section>
-                <P className="date">{data.date}</P>
-                {data.type === "Despesas" ? (
-                  <P color="#D10707">R${data.value}</P>
+                <P className="date">{Data.date}</P>
+                {Data.type === "Despesas" ? (
+                  <P color="#D10707">R${Data.value}</P>
                 ) : (
-                  <P color="#053770">R${data.value}</P>
+                  <P color="#053770">R${Data.value}</P>
                 )}
                 <section className="editar">
                   <BtnEditar
                     onClick={() => (
                       setOpenModalEditRegister(true),
-                      setId(data.id),
-                      setData(data)
+                      setId(Data.id),
+                      setData(Data)
                     )}
                   >
                     <FaPen />
                   </BtnEditar>
-                  <BtnExcluir onClick={() => deletaGasto(data.id)}>
+                  <BtnExcluir onClick={() => deletaGasto(Data.id)}>
                     <FaTrash />
                   </BtnExcluir>
                 </section>
               </li>
-            ) : data.category === "Contas" ? (
-              <li key={data.id}>
+            ) : Data.category === "Contas" ? (
+              <li key={Data.id}>
                 <section>
                   <section className="category">
                     <img src={Faturas} alt="faturas" />
-                    <P>{data.category}</P>
+                    <P>{Data.category}</P>
                   </section>
 
-                  <p>{data.description}</p>
+                  <p>{Data.description}</p>
                 </section>
-                <P className="date">{data.date}</P>
-                {data.type === "Despesas" ? (
-                  <P color="#D10707">R${data.value}</P>
+                <P className="date">{Data.date}</P>
+                {Data.type === "Despesas" ? (
+                  <P color="#D10707">R${Data.value}</P>
                 ) : (
-                  <P color="#053770">R${data.value}</P>
+                  <P color="#053770">R${Data.value}</P>
                 )}
                 <section className="editar">
                   <BtnEditar
                     onClick={() => (
                       setOpenModalEditRegister(true),
-                      setId(data.id),
-                      setData(data)
+                      setId(Data.id),
+                      setData(Data)
                     )}
                   >
                     <FaPen />
                   </BtnEditar>
-                  <BtnExcluir onClick={() => deletaGasto(data.id)}>
+                  <BtnExcluir onClick={() => deletaGasto(Data.id)}>
                     <FaTrash />
                   </BtnExcluir>
                 </section>
               </li>
-            ) : data.category === "Moda/Beleza" ? (
-              <li key={data.id}>
+            ) : Data.category === "Moda/Beleza" ? (
+              <li key={Data.id}>
                 <section>
                   <section className="category">
                     <FaTshirt size={"1.2rem"} />
-                    <P>{data.category}</P>
+                    <P>{Data.category}</P>
                   </section>
 
-                  <p>{data.description}</p>
+                  <p>{Data.description}</p>
                 </section>
-                <P className="date">{data.date}</P>
-                {data.type === "Despesas" ? (
-                  <P color="#D10707">R${data.value}</P>
+                <P className="date">{Data.date}</P>
+                {Data.type === "Despesas" ? (
+                  <P color="#D10707">R${Data.value}</P>
                 ) : (
-                  <P color="#053770">R${data.value}</P>
+                  <P color="#053770">R${Data.value}</P>
                 )}
                 <section className="editar">
                   <FaPen className="hoverRed" />
                   <FaTrash className="hoverRed" />
                 </section>
               </li>
-            ) : data.category === "Lazer" ? (
-              <li key={data.id}>
+            ) : Data.category === "Lazer" ? (
+              <li key={Data.id}>
                 <section>
                   <section className="category">
                     <BsCameraReelsFill size={"1.2rem"} />
-                    <P>{data.category}</P>
+                    <P>{Data.category}</P>
                   </section>
 
-                  <p>{data.description}</p>
+                  <p>{Data.description}</p>
                 </section>
-                <P className="date">{data.date}</P>
-                {data.type === "Despesas" ? (
-                  <P color="#D10707">R${data.value}</P>
+                <P className="date">{Data.date}</P>
+                {Data.type === "Despesas" ? (
+                  <P color="#D10707">R${Data.value}</P>
                 ) : (
-                  <P color="#053770">R${data.value}</P>
+                  <P color="#053770">R${Data.value}</P>
                 )}
                 <section className="editar">
                   <BtnEditar
                     onClick={() => (
                       setOpenModalEditRegister(true),
-                      setId(data.id),
-                      setData(data)
+                      setId(Data.id),
+                      setData(Data)
                     )}
                   >
                     <FaPen />
                   </BtnEditar>
-                  <BtnExcluir onClick={() => deletaGasto(data.id)}>
+                  <BtnExcluir onClick={() => deletaGasto(Data.id)}>
                     <FaTrash />
                   </BtnExcluir>
                 </section>
               </li>
             ) : (
-              <li key={data.id}>
+              <li key={Data.id}>
                 <section>
                   <section className="category">
                     <RiPlaneLine size={"1.2rem"} />
-                    <P>{data.category}</P>
+                    <P>{Data.category}</P>
                   </section>
 
-                  <p>{data.description}</p>
+                  <p>{Data.description}</p>
                 </section>
-                <P className="date">{data.date}</P>
-                {data.type === "Despesas" ? (
-                  <P color="#D10707">R${data.value}</P>
+                <P className="date">{Data.date}</P>
+                {Data.type === "Despesas" ? (
+                  <P color="#D10707">R${Data.value}</P>
                 ) : (
-                  <P color="#053770">R${data.value}</P>
+                  <P color="#053770">R${Data.value}</P>
                 )}
                 <section className="editar">
                   <BtnEditar
                     onClick={() => (
                       setOpenModalEditRegister(true),
-                      setId(data.id),
-                      setData(data)
+                      setId(Data.id),
+                      setData(Data)
                     )}
                   >
                     <FaPen />
                   </BtnEditar>
-                  <BtnExcluir onClick={() => deletaGasto(data.id)}>
+                  <BtnExcluir onClick={() => deletaGasto(Data.id)}>
                     <FaTrash />
                   </BtnExcluir>
                 </section>
