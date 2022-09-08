@@ -11,6 +11,12 @@ interface IOpenModalChildren {
   children: ReactNode;
 }
 
+interface IMeta{
+  objetivo: string;
+  done: number;
+  value: number;
+}
+
 interface IOpenModalContext {
   OpenModalRegister: boolean;
   setOpenModalRegister: Dispatch<SetStateAction<boolean>>;
@@ -24,6 +30,10 @@ interface IOpenModalContext {
   setData: Dispatch<SetStateAction<IGastos>>;
   Id: number;
   setId: Dispatch<SetStateAction<number>>;
+  DataMeta: IMeta;
+  setDataMeta: Dispatch<SetStateAction<IMeta>>;
+  IdMeta: number;
+  setIdMeta: Dispatch<SetStateAction<number>>;
 }
 
 export const IsOpenModalContext = createContext({} as IOpenModalContext);
@@ -43,6 +53,12 @@ export const IsOpenModalProvider = ({ children }: IOpenModalChildren) => {
     id: 0,
   });
   const [Id, setId] = useState(0);
+  const [DataMeta, setDataMeta] = useState({
+    objetivo: "",
+    done: 0,
+    value: 0,
+  });
+  const [IdMeta, setIdMeta] = useState(0);
 
   return (
     <IsOpenModalContext.Provider
@@ -59,6 +75,10 @@ export const IsOpenModalProvider = ({ children }: IOpenModalChildren) => {
         setData,
         Id,
         setId,
+        DataMeta,
+        setDataMeta,
+        IdMeta,
+        setIdMeta,
       }}
     >
       {children}

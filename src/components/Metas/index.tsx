@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { MetaContext } from "../../Contexts/MetasContext";
+import { IsOpenModalContext } from "../../Contexts/ModalContext";
 import { BtnEditarMeta, BtnRegistroMeta, Meta } from "./style.module";
 
 function Metas() {
   const { metas } = useContext(MetaContext);
+  const { OpenModalEditMeta, OpenModalMeta, setOpenModalEditMeta, setOpenModalMeta, setDataMeta, setIdMeta} = useContext(IsOpenModalContext)
 
   return (
     <>
@@ -15,7 +17,7 @@ function Metas() {
             <Meta key={item.id}>
               <div className="centralize-header-metas">
                 <h2>Meta</h2>
-                <BtnEditarMeta>Editar Meta</BtnEditarMeta>
+                <BtnEditarMeta onClick={() => {setDataMeta(item); setIdMeta(item.id); setOpenModalEditMeta(!OpenModalEditMeta)}}>Editar Meta</BtnEditarMeta>
               </div>
               <div className="centralize-metas">
                 <h3>Objetivo: {item.objetivo} </h3>
@@ -43,7 +45,7 @@ function Metas() {
           <div>
             <h2>Meta</h2>
 
-            <BtnRegistroMeta>Nova Meta</BtnRegistroMeta>
+            <BtnRegistroMeta onClick={() => {setOpenModalMeta(!OpenModalMeta)}}>Nova Meta</BtnRegistroMeta>
           </div>
         </Meta>
       )}

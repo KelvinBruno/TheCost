@@ -46,14 +46,15 @@ export const Ul = styled.ul`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 17.5rem;
-    height: 2.8rem;
+    flex-wrap: wrap;
+    max-width: 80vw;
+    height: auto;
 
     border-radius: 0.3rem;
     list-style: none;
     background-color: #e7e7e7;
     margin: 1rem 0 0 -2.5rem;
-    padding-right: 0.4rem;
+    padding-right: 1.5rem;
     :hover {
       background-color: rgba(231, 231, 231, 0.5);
     }
@@ -62,7 +63,7 @@ export const Ul = styled.ul`
       font-weight: 500;
       margin-left: 0.4rem;
       border-radius: 0.3rem;
-      width: 70%;
+      width: 50%;
       height: 100%;
       display: flex;
       flex-direction: row;
@@ -80,7 +81,9 @@ export const Ul = styled.ul`
       }
     }
     .editar {
-      display: none;
+      display: flex;
+      width: 8%;
+      margin-right: 0.4rem;
     }
     .date {
       display: none;
