@@ -7,6 +7,7 @@ import { IsOpenModalContext } from "../../Contexts/ModalContext";
 import { ModalRegistro } from "../ModalRegistro";
 import Resumo from "../Resumo";
 import { HeaderCards } from "../HeaderCards";
+import DropDown from "../DropDown";
 
 export function Dashboard() {
   const {
@@ -17,8 +18,6 @@ export function Dashboard() {
     Id,
     Data,
   } = useContext(IsOpenModalContext);
-  const nome = localStorage.getItem("@the-cost:name");
-  const primeiraLetra = nome?.split("")[0];
 
   return (
     <>
@@ -41,8 +40,8 @@ export function Dashboard() {
 
       <Header>
         <div>
-          <img src={logo} alt="Logo The Cost" />
-          <button>{primeiraLetra}</button>
+          <img src="./logo.png" alt="Logo The Cost" />
+          <DropDown />
         </div>
       </Header>
 

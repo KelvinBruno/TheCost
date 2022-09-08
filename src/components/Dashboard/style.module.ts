@@ -13,9 +13,11 @@ export const Header = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     img {
-      width: 15rem;
+      width: 12.5rem;
     }
+
     button {
       margin-right: 5%;
       width: 2.5rem;
@@ -25,17 +27,21 @@ export const Header = styled.header`
       font-size: 30px;
       color: var(--blue-0);
     }
+
     @media (max-width: 1025px) {
       margin-left: 35%;
     }
+
     @media (max-width: 700px) {
       margin-left: 30%;
       width: 65%;
     }
+
     @media (max-width: 470px) {
       margin-left: 0;
       width: 100%;
     }
+
     .icon {
       color: var(--white);
       padding-right: 15px;
