@@ -9,6 +9,7 @@ import { AuthProvider } from "./Contexts/AuthContext";
 import { MetaProvider } from "./Contexts/MetasContext";
 import { RegistroGastosProvider } from "./Contexts/RegistroGastosContext";
 import { IsOpenModalProvider } from "./Contexts/ModalContext";
+import { FilterProvider } from "./Contexts/FilterContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -18,11 +19,13 @@ root.render(
     <BrowserRouter>
       <AuthProvider>
         <RegistroGastosProvider>
-          <MetaProvider>
-            <IsOpenModalProvider>
-              <App />
-            </IsOpenModalProvider>
-          </MetaProvider>
+          <FilterProvider>
+            <MetaProvider>
+              <IsOpenModalProvider>
+                <App />
+              </IsOpenModalProvider>
+            </MetaProvider>
+          </FilterProvider>
         </RegistroGastosProvider>
       </AuthProvider>
     </BrowserRouter>

@@ -6,10 +6,8 @@ import {
   createContext,
   Dispatch,
   SetStateAction,
-  useCallback,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import Metas from "../components/Metas";
 import api from "../services/api";
 import { AuthContext } from "./AuthContext";
 
@@ -38,6 +36,7 @@ export function MetaProvider({ children }: IMetaChildren) {
   const navigate = useNavigate();
   const { setLoading } = useContext(AuthContext);
   const token = localStorage.getItem("@the-cost:token");
+  const { user } = useContext(AuthContext);
   let Metas;
 
   async function carregaMeta() {
@@ -45,7 +44,7 @@ export function MetaProvider({ children }: IMetaChildren) {
 
     if (token) {
       try {
-        const data = await api.get("/metas");
+        const data = await api.get(`/metas?userId=${user?.id}`);
         const { data: response } = data;
         Metas = response;
 

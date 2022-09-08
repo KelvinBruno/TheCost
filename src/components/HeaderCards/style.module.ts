@@ -203,7 +203,7 @@ export const Select = styled.select`
   }
 `;
 
-export const SelectTipo = styled(Select)`
+export const SelectCategory = styled(Select)`
   width: 145px;
   min-width: 145px;
 `;

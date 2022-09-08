@@ -7,15 +7,36 @@ import Faturas from "../../assets/Faturas.svg";
 import Money from "../../assets/Vector.svg";
 import { BtnEditar, BtnExcluir } from "../../styles/global";
 import { useContext } from "react";
-import { RegistroGastosContext } from "../../Contexts/RegistroGastosContext";
+import {
+  IGastos,
+  RegistroGastosContext,
+} from "../../Contexts/RegistroGastosContext";
 import { Vazio } from "../Dashboard/style.module";
 import { IsOpenModalContext } from "../../Contexts/ModalContext";
+import { FilterContext } from "../../Contexts/FilterContext";
 function ListaCards() {
+  const { Categoria, Tipo } = useContext(FilterContext);
   const { gastos, temGastos, deletaGasto } = useContext(RegistroGastosContext);
   const { setData, setId, setOpenModalEditRegister } =
     useContext(IsOpenModalContext);
 
-  if (temGastos) {
+  let listaGastos = gastos;
+
+  if (Tipo !== "Todos") {
+    console.log(Tipo);
+    let newGastos = gastos.filter((gasto) => gasto.type === Tipo);
+    console.log(newGastos);
+    if (Categoria === "Todos") {
+      listaGastos = newGastos;
+    } else {
+      let newGastosCategoria = newGastos.filter(
+        (gasto) => gasto.category === Categoria
+      );
+      listaGastos = newGastosCategoria;
+    }
+  }
+
+  if (temGastos && listaGastos) {
     return (
       <Div>
         <Header>
@@ -26,7 +47,7 @@ function ListaCards() {
           <p>Opções</p>
         </Header>
         <Ul>
-          {gastos.map((Data) =>
+          {listaGastos?.map((Data) =>
             Data.category === "Veículo" ? (
               <li key={Data.id}>
                 <section>
