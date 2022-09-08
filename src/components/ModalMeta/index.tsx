@@ -15,28 +15,35 @@ import {
   Title,
 } from "./style.module";
 import { useForm } from "react-hook-form";
-import { Dispatch, SetStateAction, useContext } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import api from "../../services/api";
 import { toast } from "react-toastify";
 
 interface IModal {
-  id?: string;
+  id?: number;
   editar?: boolean;
   funcaoFechar: Dispatch<SetStateAction<boolean>>;
   isOpen: boolean;
+  meta?: metaValues;
 }
 
 interface metaValues {
   objetivo: string;
-  value: string | number;
+  value: number | string;
+  done: number | string | undefined;
 }
 
-export function ModalMeta({ editar, funcaoFechar, isOpen }: IModal) {
+export function ModalMeta({ editar, funcaoFechar, isOpen, meta }: IModal) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<metaValues>();
+  } = useForm<metaValues>({defaultValues: {
+    objetivo: meta?.objetivo,
+    done: meta?.done,
+    value: meta?.value,
+  }});
+
   const onSubmit = handleSubmit((data) => {
     let { value } = data;
     console.log(data.value);
@@ -112,24 +119,75 @@ export function ModalMeta({ editar, funcaoFechar, isOpen }: IModal) {
           </InputsGroup>
           <InputsGroup>
             <LabelModal htmlFor="valor">Valor</LabelModal>
-            <CurrencyInput
-              id="valor"
-              placeholder="R$"
-              decimalsLimit={2}
-              maxLength={18}
-              disableAbbreviations
-              defaultValue={0}
-              intlConfig={{ locale: "pt-BR", currency: "BRL" }}
-              {...register("value", {
-                setValueAs: (value) => {
-                  value = value.slice(3);
-                  value = value.replaceAll(".", "");
-                  value = value.replace(",", ".");
-                  value = parseFloat(value);
-                  return value;
-                },
-              })}
-            />
+            {editar ? (
+              <CurrencyInput
+                id="valor"
+                placeholder="R$"
+                decimalsLimit={2}
+                maxLength={18}
+                disableAbbreviations
+                defaultValue={meta?.value}
+                intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+                  {...register("value", {
+                    setValueAs: (value) => {
+                      value = value.slice(3)
+                      return value
+                    }
+                })}
+              />
+            ) : (
+              <CurrencyInput
+                id="valor"
+                placeholder="R$"
+                decimalsLimit={2}
+                maxLength={18}
+                disableAbbreviations
+                defaultValue={0}
+                intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+                  {...register("value", {
+                    setValueAs: (value) => {
+                      value = value.slice(3)
+                      return value
+                    },
+                })}
+              />
+            )}
+          </InputsGroup>
+          <InputsGroup>
+            <LabelModal htmlFor="valor">Dinheiro guardado</LabelModal>
+            {editar ? (
+              <CurrencyInput
+                id="valor"
+                placeholder="R$"
+                decimalsLimit={2}
+                maxLength={18}
+                disableAbbreviations
+                defaultValue={meta?.done}
+                intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+                  {...register("done", {
+                    setValueAs: (done) => {
+                      done = done.slice(3)
+                      return done
+                    },
+                })}
+              />
+            ) : (
+              <CurrencyInput
+                id="valor"
+                placeholder="R$"
+                decimalsLimit={2}
+                maxLength={18}
+                disableAbbreviations
+                defaultValue={0}
+                intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+                  {...register("done", {
+                    setValueAs: (done) => {
+                      done = done.slice(3)
+                      return done
+                    },
+                })}
+              />
+            )}
           </InputsGroup>
           <div id="botoes">{botoes}</div>
         </FormModal>
