@@ -62,7 +62,7 @@ export function MetaProvider({ children }: IMetaChildren) {
 
   useEffect(() => {
     carregaMeta();
-  }, [Metas]);
+  }, []);
 
   return (
     <MetaContext.Provider value={{ carregaMeta, metas, setMetas }}>
