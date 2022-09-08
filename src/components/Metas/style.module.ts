@@ -35,6 +35,7 @@ export const Meta = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-direction: row;
     border-bottom: 1px solid black;
 
     h2 {
@@ -93,4 +94,6 @@ export const BtnRegistroMeta = styled(BtnNovoRegistro)`
   font-family: "Inter", sans-serif;
 `;
 
-export const BtnEditarMeta = styled(BtnRegistroMeta)``;
+export const BtnEditarMeta = styled(BtnRegistroMeta)`
+  max-width: 50%;
+`;
