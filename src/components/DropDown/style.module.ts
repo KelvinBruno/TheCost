@@ -14,7 +14,7 @@ export const Container = styled.div`
 
     @media only screen and (min-width: 1024px) {
     .menu img {
-        right: 80px;
+        right: 75px;
     }
 }
 `
@@ -74,7 +74,7 @@ export const DropDownMenu = styled.div`
 
     @media only screen and (min-width: 1024px) {
     .drop {
-        right: 80px;
+        right: 75px;
     }
     
     ul{
