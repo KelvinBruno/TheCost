@@ -1,7 +1,9 @@
 import CurrencyInput from "react-currency-input-field";
 import { MdClear } from "react-icons/md";
 import { BtnSalvar, Input } from "../../styles/global";
+import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { ErrorMessageModalRegistro } from "../ModalRegistro/style.module";
 import "./styles.css";
 import {
   BotaoFechar,
@@ -38,11 +40,18 @@ interface metaValues {
 }
 
 export function ModalMeta({ editar, funcaoFechar, isOpen, meta }: IModal) {
+  const schema = yup.object({
+    objetivo: yup.string().required("O objetivo é obrigatório"),
+    value: yup.number().min(1, 'O valor deve ser maior que 0').required("O valor é obrigatório"),
+    done: yup.number().required("O dinheiro guardado é obrigatória"),
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<metaValues>({
+    resolver: yupResolver(schema),
     defaultValues: {
       objetivo: meta?.objetivo,
       done: `R$ ${meta?.done}`,
@@ -144,6 +153,11 @@ export function ModalMeta({ editar, funcaoFechar, isOpen, meta }: IModal) {
               placeholder="Insira a descrição do objetivo"
               {...register("objetivo")}
             />
+             {errors.objetivo && (
+              <ErrorMessageModalRegistro>
+                {errors.objetivo.message}
+              </ErrorMessageModalRegistro>
+            )}
           </InputsGroup>
           <InputsGroup>
             <LabelModal htmlFor="valor">Valor</LabelModal>
@@ -186,6 +200,11 @@ export function ModalMeta({ editar, funcaoFechar, isOpen, meta }: IModal) {
                 })}
               />
             )}
+             {errors.value && (
+              <ErrorMessageModalRegistro>
+                {errors.value.message}
+              </ErrorMessageModalRegistro>
+            )}
           </InputsGroup>
           <InputsGroup>
             <LabelModal htmlFor="valor">Dinheiro guardado</LabelModal>
@@ -227,6 +246,11 @@ export function ModalMeta({ editar, funcaoFechar, isOpen, meta }: IModal) {
                   },
                 })}
               />
+            )}
+             {errors.done && (
+              <ErrorMessageModalRegistro>
+                {errors.done.message}
+              </ErrorMessageModalRegistro>
             )}
           </InputsGroup>
           <div id="botoes">{botoes}</div>
