@@ -14,7 +14,7 @@ export const Container = styled.div`
 
     @media only screen and (min-width: 1024px) {
     .menu img {
-        right: 80px;
+        right: 75px;
     }
 }
 `
@@ -26,7 +26,7 @@ export const DropDownMenu = styled.div`
         right: 20px;
         background-color: var(--white);
         border-radius: 8px;
-        width: 150px;
+        width: 170px;
     }
 
     .drop::before{
@@ -70,6 +70,11 @@ export const DropDownMenu = styled.div`
     .drop-item{
         padding-left: 20px;
         padding-right: 20px;
+    }
+
+    @media only screen and (min-width: 1024px) {
+    .drop {
+        right: 75px;
     }
     
     ul{
