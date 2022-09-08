@@ -47,12 +47,6 @@ export function HeaderCards() {
         <option value="Viagem" id="viagem">
           Viagem
         </option>
-        <option value="Supermercado" id="Supermercado">
-          Supermercado
-        </option>
-        <option value="Veículos" id="Veículos">
-          Veículos
-        </option>
       </>
     );
   }

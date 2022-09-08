@@ -16,17 +16,29 @@ import { IsOpenModalContext } from "../../Contexts/ModalContext";
 import { FilterContext } from "../../Contexts/FilterContext";
 function ListaCards() {
   const { Categoria, Tipo } = useContext(FilterContext);
-  const { gastos, temGastos, deletaGasto } = useContext(RegistroGastosContext);
+  const { gastos, temGastos, deletaGasto, carregaGastos } = useContext(
+    RegistroGastosContext
+  );
   const { setData, setId, setOpenModalEditRegister } =
     useContext(IsOpenModalContext);
 
   let listaGastos = gastos;
+  carregaGastos();
 
-  if (Tipo !== "Todos") {
+  if (Tipo === "Despesas" || Tipo === "Receitas") {
     console.log(Tipo);
     let newGastos = gastos.filter((gasto) => gasto.type === Tipo);
     console.log(newGastos);
-    if (Categoria === "Todos") {
+    if (
+      Categoria !== "Veículo" &&
+      Categoria !== "Supermercado" &&
+      Categoria !== "Salário" &&
+      Categoria !== "Contas" &&
+      Categoria !== "Moda/Beleza" &&
+      Categoria !== "Lazer" &&
+      Categoria !== "Viagem" &&
+      Categoria !== "Outros rendimentos"
+    ) {
       listaGastos = newGastos;
     } else {
       let newGastosCategoria = newGastos.filter(
@@ -34,6 +46,8 @@ function ListaCards() {
       );
       listaGastos = newGastosCategoria;
     }
+  } else {
+    listaGastos = gastos;
   }
 
   if (temGastos && listaGastos) {
