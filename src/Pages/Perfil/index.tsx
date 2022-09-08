@@ -61,14 +61,9 @@ const Perfil = () => {
       .required("O email é obrigatório"),
 
     password: yup.string(),
-    // .matches(
-    //   /^(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-    //   "Senha com no mínimo 8 caracteres. Necessário ter letras, números e ao menos um símbolo"
-    // ),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password")], "A confirmação deve ser igual a senha"),
-
     image: yup.string(),
   });
 
@@ -108,7 +103,7 @@ const Perfil = () => {
               src={
                 user?.image
                   ? user.image
-                  : "https://epipoca.com.br/wp-content/uploads/2022/04/luffy-one-piece-1015.jpg"
+                  : "./img-default.png"
               }
               alt=""
             />

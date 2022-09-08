@@ -34,7 +34,7 @@ export const Registro = () => {
       .string()
       .oneOf([yup.ref("password")], "A confirmação deve ser igual a senha")
       .required("A confirmação é obrigatória"),
-    image: yup.string().required("A imagem de perfil é obrigatória"),
+    image: yup.string()
   });
 
   const {
