@@ -5,9 +5,11 @@ import {
   createContext,
   Dispatch,
   SetStateAction,
+  useContext,
 } from "react";
 import { toast } from "react-toastify";
 import api from "../services/api";
+import { AuthContext } from "./AuthContext";
 
 interface IRegistroGastosChildren {
   children: ReactNode;
@@ -42,13 +44,14 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
   const [temGastos, setTemGastos] = useState(false);
   const [receita, setReceita] = useState(0);
   const [despesa, setDespesa] = useState(0);
+  const { user } = useContext(AuthContext);
 
   async function carregaGastos() {
     const token = localStorage.getItem("@the-cost:token");
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     try {
-      const data = await api.get("/data");
+      const data = await api.get(`/data?userId=${user?.id}`);
       const { data: Gastos } = data;
       setGastos(Gastos);
       if (Gastos.length !== 0) {
