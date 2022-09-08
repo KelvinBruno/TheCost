@@ -50,7 +50,9 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
     try {
       const data = await api.get("/data");
       const { data: Gastos } = data;
-      if (Gastos.length !== 0) {
+      setGastos(Gastos);
+      if (gastos.length !== 0) {
+        console.log("calculou gastos");
         let arrayDespesas = Gastos.filter(
           (gasto: IGastos) => gasto.type === "Despesas"
         );
@@ -74,9 +76,8 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
       } else {
         setTemGastos(false);
       }
-
-      setGastos(Gastos);
     } catch (error) {
+      setTemGastos(false);
       console.error(error);
     }
   }
@@ -84,7 +85,10 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
   async function deletaGasto(id: number) {
     api
       .delete(`data/${id}`)
-      .then(() => toast.success("Registro deletado com sucesso."))
+      .then(() => {
+        carregaGastos();
+        toast.success("Registro deletado com sucesso.");
+      })
       .catch((error) => toast.error("ops, ocorreu um erro."));
   }
 
