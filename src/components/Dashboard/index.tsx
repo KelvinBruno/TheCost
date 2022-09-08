@@ -18,7 +18,7 @@ export function Dashboard() {
     Data,
   } = useContext(IsOpenModalContext);
   const nome = localStorage.getItem("@the-cost:name");
-  const primeiraLetra = nome.split("")[0];
+  const primeiraLetra = nome?.split("")[0];
 
   return (
     <>
