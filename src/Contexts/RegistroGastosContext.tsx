@@ -96,8 +96,6 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
   }
 
   useEffect(() => {
-    console.log("gastos");
-    console.log(temGastos);
     carregaGastos();
   }, []);
 
