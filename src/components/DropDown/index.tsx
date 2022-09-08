@@ -23,7 +23,7 @@ const DropDown = () => {
       <Container>
         <div className="menu" onClick={() => {setOpen(!open)}}>
           <img 
-          src= {user?.image ? user.image : "./img-base.jpg"}
+          src= {user?.image ? user.image : "./img-default.png"}
           alt="Foto de Perfil" />
         </div>
       </Container>
