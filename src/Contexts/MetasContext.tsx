@@ -42,6 +42,7 @@ export function MetaProvider({ children }: IMetaChildren) {
   async function carregaMeta() {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
+    
     if (token) {
       try {
         const data = await api.get(`/metas?userId=${user?.id}`);

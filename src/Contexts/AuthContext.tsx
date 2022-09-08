@@ -54,7 +54,6 @@ export function AuthProvider({ children }: IAuthChildren) {
         api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
         setUser(user);
-        console.log(accessToken);
         navigate("/dashboard");
       }
     } catch (err) {
