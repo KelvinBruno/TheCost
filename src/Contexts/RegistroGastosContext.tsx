@@ -55,7 +55,6 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
       const { data: Gastos } = data;
       setGastos(Gastos);
       if (Gastos.length !== 0) {
-        console.log("calculou gastos");
         let arrayDespesas = Gastos.filter(
           (gasto: IGastos) => gasto.type === "Despesas"
         );
@@ -68,7 +67,6 @@ export function RegistroGastosProvider({ children }: IRegistroGastosChildren) {
             return soma + atual.value;
           }, 0)
         );
-        console.log(receita);
         setDespesa(
           arrayDespesas.reduce(function (soma: number, atual: IGastos) {
             return soma + atual.value;
