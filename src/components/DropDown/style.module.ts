@@ -11,6 +11,12 @@ export const Container = styled.div`
         overflow: hidden;
         cursor: pointer;
     }
+
+    @media only screen and (min-width: 1024px) {
+    .menu img {
+        right: 80px;
+    }
+}
 `
 
 export const DropDownMenu = styled.div`
