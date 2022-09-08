@@ -4,6 +4,7 @@ import { BtnNovoRegistro } from "../../styles/global";
 export const Meta = styled.div`
   width: 288px;
   height: auto;
+  min-height: 6rem;
   border-radius: 8px;
   border: 1px solid black;
   background-color: white;
@@ -12,6 +13,21 @@ export const Meta = styled.div`
   justify-content: space-between;
   flex-direction: column;
   text-align: start;
+
+  div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+  }
+
+  h2{
+    font-size: 16px;
+    color: var(--blue-3);
+    font-family: "Inter", sans-serif;
+  }
 
   .centralize-header-metas {
     padding-top: 10px;
