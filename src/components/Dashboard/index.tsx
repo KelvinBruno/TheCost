@@ -8,6 +8,7 @@ import { ModalRegistro } from "../ModalRegistro";
 import Resumo from "../Resumo";
 import { HeaderCards } from "../HeaderCards";
 import DropDown from "../DropDown";
+import { ModalMeta } from "../ModalMeta";
 
 export function Dashboard() {
   const {
@@ -15,8 +16,14 @@ export function Dashboard() {
     setOpenModalRegister,
     OpenModalEditRegister,
     setOpenModalEditRegister,
+    OpenModalEditMeta,
+    OpenModalMeta,
+    setOpenModalEditMeta,
+    setOpenModalMeta,
     Id,
     Data,
+    IdMeta,
+    DataMeta,
   } = useContext(IsOpenModalContext);
 
   return (
@@ -34,6 +41,23 @@ export function Dashboard() {
           id={Id}
           data={Data}
           isOpen={OpenModalEditRegister}
+          editar
+        />
+      )}
+
+      {OpenModalMeta && (
+      <ModalMeta
+          funcaoFechar={setOpenModalMeta}
+          isOpen={OpenModalMeta}
+        />
+      )}
+
+      {OpenModalEditMeta && (
+        <ModalMeta
+          funcaoFechar={() => setOpenModalEditMeta(!OpenModalEditMeta)}
+          id={IdMeta}
+          meta={DataMeta}
+          isOpen={OpenModalEditMeta}
           editar
         />
       )}
