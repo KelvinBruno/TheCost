@@ -10,6 +10,7 @@ import { MetaProvider } from "./Contexts/MetasContext";
 import { RegistroGastosProvider } from "./Contexts/RegistroGastosContext";
 import { IsOpenModalProvider } from "./Contexts/ModalContext";
 import { FilterProvider } from "./Contexts/FilterContext";
+import AuthRegistro from "./Contexts/AuthRegistro";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,6 +18,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+    <AuthRegistro>
       <AuthProvider>
         <RegistroGastosProvider>
           <FilterProvider>
@@ -28,6 +30,7 @@ root.render(
           </FilterProvider>
         </RegistroGastosProvider>
       </AuthProvider>
+      </AuthRegistro>
     </BrowserRouter>
   </React.StrictMode>
 );
